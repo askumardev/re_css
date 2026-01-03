@@ -6,6 +6,10 @@ cd re_css\
 * //"start": "set PORT=4000 && react-scripts start",\
 <SampleContainer />
 
+
+    // "start": "parcel src/foodora/index.html",
+    // "build": "parcel build src/foodora/index.html",
+
 `npx parcel src/foodora/index.html`
 comment in .env file the port(#) if we want parcel to start the server
 else `npm start`
