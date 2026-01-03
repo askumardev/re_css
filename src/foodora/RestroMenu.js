@@ -1,38 +1,37 @@
 import { useEffect } from "react";
 import { MENU_API } from "../utils/constants";
 import { useParams } from "react-router-dom";
+import useRestroMenu from "../utils/useRestroMenu";
 
 
 const RestroMenu = () => {
 
   const { resId } = useParams();
-  const resInfo = useRestaurantMenu(resId);
+  const resInfo = useRestroMenu(resId);
+  // console.log(resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card);
 
-  useEffect(() => {
-    console.log("useEffect");
-    //fetchData();
-  }, []);
+  // const { name, cuisines, costForTwoMessage } = resInfo?.cards[0]?.card?.card?.text;
+  const name = resInfo?.cards[0]?.card?.card?.text;
 
-  const fetchMenu = async () => {
-    const data = await fetch(MENU_API);
-    const json = await data.json();
-    console.log(json.data);
-  };
+  //const { itemCards } = resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
+//console.log(resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]);
+  const categories =
+    resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+      (c) =>
+        c.card?.["card"]?.["@type"] ===
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    );
+
+   console.log(categories);
+
   return (
-    <div className="menu">
-      {filteredRestaurant.map((rest) => (
-        <Link key={"restaurants/"+ rest.data.id}> <RestroCard key={rest.data.id} resData={rest} /> </Link>
-        ))} 
-      <h1>Restro menu Page</h1>
-        <ul>
-          <li>Pizza</li>
-          <li>Coke</li>
-          <li>Burger</li>
-          <li>Juice</li>
+    <div className="text-center">
+      <h1 className="font-bold my-6 text-2xl">{name}</h1>
 
-        </ul>
     </div>
   );
+
+
 };
 
 export default RestroMenu;

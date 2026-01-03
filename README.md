@@ -14,6 +14,22 @@ cd re_css\
 comment in .env file the port(#) if we want parcel to start the server
 else `npm start`
 
+## Testing
+npm install --save-dev @testing-library/react @testing-library/dom
+
+npm install --save-dev jest
+
+npm install --save-dev babel-jest @babel/core @babel/preset-env
+babel.config.js
+module.exports = {
+  presets: [['@babel/preset-env', {targets: {node: 'current'}}]],
+};
+
+npm i -D @babel/preset-react
+npm install --save-dev @testing-library/jest-dom
+
+* npm run test
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

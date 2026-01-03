@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function App() {
+export default function Advice() {
   const [advice, setAdvice] = useState("");
   const [count, setCount] = useState(0);
 
@@ -17,7 +17,7 @@ export default function App() {
 
   return (
     <div>
-      <h1>{advice}</h1>
+      <marquee><h1 className="font-bold">{advice}</h1></marquee>
       <button onClick={getAdvice}>Get advice</button>
       <Message count={count} />
     </div>

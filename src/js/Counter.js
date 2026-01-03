@@ -18,7 +18,7 @@ function Counter() {
   };
   return (
     <div>
-      <div class="advice">
+      <div className="advice">
         <Advice />
       </div>
       <br /><br />
