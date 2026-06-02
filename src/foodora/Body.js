@@ -22,13 +22,24 @@ const Body = () => {
   }, []);
 
   const fetchData = async() => {
-    const data = await fetch(BASE_URL);
-
-    const json = await data.json();
-    //console.log(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-    //listOfRestros = json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants;
-    setListOfRestros(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-    setFilteredRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    try {
+      const data = await fetch(BASE_URL);
+      
+      if (!data.ok) {
+        throw new Error(`HTTP error! status: ${data.status}`);
+      }
+      
+      const json = await data.json();
+      //console.log(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+      //listOfRestros = json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants;
+      setListOfRestros(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+      setFilteredRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      // Fallback to mock data from constants
+      setListOfRestros(restroList);
+      setFilteredRestaurant(restroList);
+    }
   }
 
   const onlineStatus = useOnlineStatus();

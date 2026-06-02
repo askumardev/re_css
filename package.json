@@ -15,7 +15,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "set PORT=4000 && react-scripts start",
+    "start": "FAST_REFRESH=false PORT=4000 react-scripts start",
     "build": "parcel build src/foodora/index.html",
     "test": "jest src/foodora/",
     "eject": "react-scripts eject"
