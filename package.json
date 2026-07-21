@@ -2,7 +2,6 @@
   "name": "re_css",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3000",
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
     "@testing-library/user-event": "^13.5.0",
@@ -56,7 +55,6 @@
     "packageExports": true
   },
   "description": "react stuff",
-  "main": "app1.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/askumardev/re_css.git"
