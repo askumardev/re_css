@@ -11,7 +11,7 @@ cd re_css\
     // "build": "parcel build src/foodora/index.html",
 
 
-'''
+`
 ## Setup commands
    sudo apt update
    node -v
@@ -23,7 +23,7 @@ cd re_css\
    npm -v
    npm install
    npm start
-'''
+`
 
 `npx parcel src/foodora/index.html`
 comment in .env file the port(#) if we want parcel to start the server
