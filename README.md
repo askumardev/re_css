@@ -10,8 +10,8 @@ cd re_css\
     // "start": "parcel src/foodora/index.html",
     // "build": "parcel build src/foodora/index.html",
 
-```
 ## Setup commands
+```
   * sudo apt update
   * node -v
   * nvm install 22
