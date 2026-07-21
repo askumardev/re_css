@@ -1,15 +1,5 @@
 # Getting Started with Create React App
 
-npm -v--->7.15.1\
-`npx create-react-app re_css\`
-cd re_css\
-* //"start": "set PORT=4000 && react-scripts start",\
-<SampleContainer />
-
-
-    // "start": "parcel src/foodora/index.html",
-    // "build": "parcel build src/foodora/index.html",
-
 ## Setup commands
 ```
   * sudo apt update
@@ -22,6 +12,16 @@ cd re_css\
   * npm install
   * npm start
   * npm install -D parcel
+```
+
+```
+`npx create-react-app re_css\`
+cd re_css\
+
+  "start": "set PORT=4000 && react-scripts start",\
+  <SampleContainer />
+  "start": "parcel src/foodora/index.html",
+  "build": "parcel build src/foodora/index.html",
 ```
 
 `npx parcel src/foodora/index.html`
