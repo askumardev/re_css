@@ -13,16 +13,15 @@ cd re_css\
 
 `
 ## Setup commands
-   sudo apt update
-   node -v
-   nvm use 22
-   nvm install 22
-   nvm use 22
-   nvm alias default 22
-   node -v
-   npm -v
-   npm install
-   npm start
+  * sudo apt update
+  * node -v
+  * nvm install 22
+  * nvm use 22
+  * nvm alias default 22
+  * node -v
+  * npm -v
+  * npm install
+  * npm start
 `
 
 `npx parcel src/foodora/index.html`
