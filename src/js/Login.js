@@ -15,6 +15,11 @@ const Login = () => {
       return;
     }
 
+    if (password.length <= 8) {
+      setError('Password must be greater than 8 characters.');
+      return;
+    }
+
     setError('');
     console.log('Logged in with', username, password);
   };

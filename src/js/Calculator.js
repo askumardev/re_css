@@ -15,6 +15,11 @@ const Calculator = () => {
     setResult(null);
   };
 
+  const handleBackspace = () => {
+    setInput((prevInput) => prevInput.slice(0, -1));
+    setResult(null);
+  };
+
   const handleEqual = () => {
     try {
       setResult(eval(input));
@@ -46,6 +51,7 @@ const Calculator = () => {
         <button onClick={() => handleClick('0')}>0</button>
         <button onClick={() => handleClick('.')}>.</button>
         <button onClick={() => handleClick('/')}>/</button>
+        <button onClick={() => handleBackspace()}>&larr;</button>
         <button onClick={() => handleEqual()}>=</button>
       </div>
     </div>
