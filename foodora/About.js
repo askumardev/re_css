@@ -1,6 +1,6 @@
 import User from "./User";
 //import UserClass from "./UserClass";
-import UserContext from "../utils/UserContext";
+import UserContext from "../src/utils/UserContext";
 
 const About = () => {
   return (

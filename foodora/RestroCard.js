@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { CDN_URL } from "../utils/constants";
-import UserContext from "../utils/UserContext";
+import { CDN_URL } from "../src/utils/constants";
+import UserContext from "../src/utils/UserContext";
 
 const styleCard = {
   backgroundColor: "#f0f0f0",
@@ -20,7 +20,7 @@ const RestroCard = (props) => {
     sla,
   } = resData;
   return (
-    <div className="res-card m-4 p-4 w-[250px] bg-gray-50 hover:bg-gray-200" /* style={styleCard} **/>
+    <div className="res-card m-4 p-4 w-[250px] bg-gray-50 hover:bg-gray-200" style={styleCard}>
       <img className="resLogo rounded-lg" alt="resLogo" src={CDN_URL + cloudinaryImageId} />
       <h3 className="font-bold py-4 text-lg">{name}</h3>
       <h4>{cuisines.join(", ")}</h4>

@@ -2,19 +2,19 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
-import UserContext from "../utils/UserContext";
+import UserContext from "../src/utils/UserContext";
 import { Provider } from "react-redux";
 import Header from "./Header";
 import Body from "./Body";
-import About from "./About";
 import Contact from "./Contact";
 import Error from "./Error";
 import RestroMenu from "./RestroMenu";
 import Cart from "./Cart";
-import appStore from "../utils/appStore";
+import appStore from "../src/utils/appStore";
 
-const  Grocery = lazy(() => import("./Grocery"));
-const  About = lazy(() => import("./About"));
+const Grocery = lazy(() => import("./Grocery"));
+const About = lazy(() => import("./About"));
+
 const AppLayout = () => {
   const [userName, setUserName] = useState();
 

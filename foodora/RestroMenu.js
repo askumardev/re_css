@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { MENU_API } from "../utils/constants";
+import { MENU_API } from "../src/utils/constants";
 import { useParams } from "react-router-dom";
-import useRestroMenu from "../utils/useRestroMenu";
+import useRestroMenu from "../src/utils/useRestroMenu";
 
 
 const RestroMenu = () => {

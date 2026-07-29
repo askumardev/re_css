@@ -1,11 +1,11 @@
 import RestroCard from "./RestroCard";
-import { restroList } from "../utils/constants";
-import { BASE_URL } from "../utils/constants";
+import { restroList, normalizeRestaurantData } from "../src/utils/constants";
+import { BASE_URL } from "../src/utils/constants";
 import { useState, useEffect, useContext } from "react";
-import useOnlineStatus from "../utils/useOnlineStatus";
+import useOnlineStatus from "../src/utils/useOnlineStatus";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
-import UserContext from "../utils/UserContext";
+import UserContext from "../src/utils/UserContext";
 
 
 const Body = () => {
@@ -30,15 +30,17 @@ const Body = () => {
       }
       
       const json = await data.json();
-      //console.log(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-      //listOfRestros = json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants;
-      setListOfRestros(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-      setFilteredRestaurant(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+      const restaurants = normalizeRestaurantData(
+        json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      );
+
+      setListOfRestros(restaurants);
+      setFilteredRestaurant(restaurants);
     } catch (error) {
-      console.error("Error fetching data:", error);
-      // Fallback to mock data from constants
-      setListOfRestros(restroList);
-      setFilteredRestaurant(restroList);
+      console.warn("Could not fetch restaurant data; using fallback data.", error);
+      const fallbackRestaurants = normalizeRestaurantData(restroList);
+      setListOfRestros(fallbackRestaurants);
+      setFilteredRestaurant(fallbackRestaurants);
     }
   }
 
@@ -68,8 +70,6 @@ const Body = () => {
             }}
           />
           <button className="searchBtn px-4 py-2 m-4 bg-green-100 rounded-lg" onClick={()=>{
-            const filteredData = listOfRestros.filter(
-              (res) => res.info.name.toLowerCase().includes(searchText.toLowerCase()));
             const filteredRestaurant = listOfRestros.filter((res) =>
                 res.info.name.toLowerCase().includes(searchText.toLowerCase())
               );
@@ -80,8 +80,8 @@ const Body = () => {
         <div className="m-4 p-4 flex items-center">
           <button className="filterBtn px-4 py-2 bg-gray-100 rounded-lg" 
             onClick={() => {
-            filteredList = listOfRestros.filter(
-              (res) => res.info.avgRating >= 4.4
+            const filteredList = listOfRestros.filter(
+              (res) => Number(res.info.avgRating) >= 4.4
             );
             setFilteredRestaurant(filteredList);
           }}>
@@ -98,14 +98,14 @@ const Body = () => {
           </div>    
       </div>
       
-      <div className="restro-container flex flex-wrap m-4">
+      <div className="restro-container flex flex-wrap justify-center m-4">
         {filteredRestaurant.map((restaurant) =>(
           <Link key={restaurant?.info.id}
             to={"/restaurants/" + restaurant?.info.id}>
             <RestroCard resData={restaurant?.info} />
           
           </Link>
-        ))};
+        ))}
       </div>
       </div>
   );

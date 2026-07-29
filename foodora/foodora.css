@@ -34,12 +34,20 @@ body {
 .restro-container{
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: center;
+	gap: 16px;
+	padding: 0 16px;
 }
 
 .res-card{
 	margin: 5px;
 	width: 200px;
 	padding: 5px;
+	min-width: 240px;
+	max-width: 260px;
+	box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+	border-radius: 16px;
+	background: #ffffff;
 }
 
 .res-card:hover{

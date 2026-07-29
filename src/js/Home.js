@@ -1,60 +1,50 @@
 import React from "react";
-
-function add() {
-  console.log(10 + 5);
-}
-add();
-
-function greet(msg = "HELLO", user) {
-  // console.log(msg);
-  // console.log(user);
-  // console.log(msg+" "+user);
-  return "i am " + user;
-}
-const hello = greet("adios", "ask");
-console.log(hello);
-// greet("hello","kumar");
-// greet(" ","kumar");
-
-function cal(a, b, c) {
-  let d = (a * b) / c;
-  console.log(d);
-}
-cal(10, 4, 2);
-
-class User {
-  constructor(name, rank) {
-    this.name = name;
-    this.rank = rank;
-  }
-  sample() {
-    console.log("sample method in User class...");
-  }
-}
-const user1 = new User("asfd", 3);
-console.log(user1);
-user1.sample();
-
-const arr = ["One", "Two", "Three", "Four"];
-console.log(arr[2]);
-arr.push("Five");
-console.log(arr);
-const index = arr.findIndex((item) => {
-  return item === "Three";
-});
-// const index = arr.findIndex((item) => item === "Three");
-console.log(index);
-
-const newArr = arr.map((item) => item + "!");
-console.log(newArr);
+import { Link } from "react-router-dom";
 
 const Home = () => (
   <div className="home_div">
-    <h2>This is from Home Page</h2>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br></br>
-      <pre>Check Console...here...</pre>
-    </p>
+    <section className="hero">
+      <div className="hero-copy">
+        <p className="eyebrow">React learning workspace</p>
+        <h1>Build and practice React apps with confidence</h1>
+        <p className="hero-text">
+          This project is configured for learning React using Create React App and
+          building small practice apps like the foodora sample. Use the quick
+          commands below to launch the main app or the sample project.
+        </p>
+        <div className="hero-buttons">
+          <Link className="button primary" to="/">
+            Open main app
+          </Link>
+          <a className="button secondary" href="http://localhost:5000" target="_blank" rel="noreferrer">
+            Open foodora sample
+          </a>
+        </div>
+      </div>
+      <div className="hero-card">
+        <h2>Quick start</h2>
+        <div className="code-block">
+          <code>npm install</code>
+          <code>npm start</code>
+          <code>npm run foodora</code>
+        </div>
+      </div>
+    </section>
+
+    <section className="features">
+      <div className="feature-card">
+        <h3>Main React app</h3>
+        <p>Practice routing, components, hooks, and state using the CRA app.</p>
+      </div>
+      <div className="feature-card">
+        <h3>Foodora sample</h3>
+        <p>Explore a real sample project with async data, routing, and Redux.</p>
+      </div>
+      <div className="feature-card">
+        <h3>Practice demos</h3>
+        <p>Keep HTML/CSS/JS demos in <code>practice/</code> for quick experiments.</p>
+      </div>
+    </section>
   </div>
 );
 

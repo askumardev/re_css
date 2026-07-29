@@ -11,8 +11,7 @@ export const MENU_API =
 
 export const restroList = [
   {
-  "data": 
-    {
+    "data": {
       "id": "134",
       "imageId": "/MERCHANDISING_BANNERS/IMAGES/MERCH/2024/7/2/8f508de7-e0ac-4ba8-b54d-def9db98959e_Pav%20Bhaji.png",
       "name": "KFC",
@@ -20,11 +19,10 @@ export const restroList = [
       "costForTwo": 40000,
       "deliveryTime": 36,
       "avgRating": "3.8"
-    },
+    }
   },
   {
-  "data": 
-    {
+    "data": {
       "id": "135",
       "imageId": "/MERCHANDISING_BANNERS/IMAGES/MERCH/2024/7/2/8f508de7-e0ac-4ba8-b54d-def9db98959e_Pav%20Bhaji.png",
       "name": "Dominos",
@@ -32,11 +30,10 @@ export const restroList = [
       "costForTwo": 30000,
       "deliveryTime": 40,
       "avgRating": "3.5"
-    },
+    }
   },
   {
-  "data": 
-    {
+    "data": {
       "id": "136",
       "imageId": "/MERCHANDISING_BANNERS/IMAGES/MERCH/2024/7/2/8f508de7-e0ac-4ba8-b54d-def9db98959e_Pav%20Bhaji.png",
       "name": "Meghana Biryani",
@@ -44,11 +41,10 @@ export const restroList = [
       "costForTwo": 30000,
       "deliveryTime": 40,
       "avgRating": "4.1"
-    },
+    }
   },
   {
-  "data": 
-    {
+    "data": {
       "id": "137",
       "imageId": "/MERCHANDISING_BANNERS/IMAGES/MERCH/2024/7/2/8f508de7-e0ac-4ba8-b54d-def9db98959e_Pav%20Bhaji.png",
       "name": "Nagarjuna",
@@ -56,11 +52,10 @@ export const restroList = [
       "costForTwo": 30000,
       "deliveryTime": 40,
       "avgRating": "4.2"
-    },
+    }
   },
   {
-  "data": 
-    {
+    "data": {
       "id": "138",
       "imageId": "/MERCHANDISING_BANNERS/IMAGES/MERCH/2024/7/2/8f508de7-e0ac-4ba8-b54d-def9db98959e_Pav%20Bhaji.png",
       "name": "ArabianNight",
@@ -68,11 +63,10 @@ export const restroList = [
       "costForTwo": 30000,
       "deliveryTime": 40,
       "avgRating": "3.9"
-    },
+    }
   },
   {
-  "data": 
-    {
+    "data": {
       "id": "139",
       "imageId": "/MERCHANDISING_BANNERS/IMAGES/MERCH/2024/7/2/8f508de7-e0ac-4ba8-b54d-def9db98959e_Pav%20Bhaji.png",
       "name": "Nandini Cafe",
@@ -80,11 +74,10 @@ export const restroList = [
       "costForTwo": 30000,
       "deliveryTime": 40,
       "avgRating": "4.0"
-    },
+    }
   },
   {
-  "data": 
-    {
+    "data": {
       "id": "140",
       "imageId": "/MERCHANDISING_BANNERS/IMAGES/MERCH/2024/7/2/8f508de7-e0ac-4ba8-b54d-def9db98959e_Pav%20Bhaji.png",
       "name": "Udipi Grand",
@@ -92,7 +85,30 @@ export const restroList = [
       "costForTwo": 30000,
       "deliveryTime": 40,
       "avgRating": "4.3"
-    },
-  },
+    }
+  }
 ];
+
+export const normalizeRestaurantData = (restaurants) => {
+  if (!Array.isArray(restaurants)) {
+    return [];
+  }
+
+  return restaurants.map((restaurant) => {
+    const data = restaurant?.data ?? restaurant?.info ?? restaurant;
+
+    return {
+      ...restaurant,
+      info: {
+        id: data?.id ?? restaurant?.info?.id,
+        cloudinaryImageId: data?.cloudinaryImageId ?? data?.imageId,
+        name: data?.name,
+        avgRating: data?.avgRating,
+        cuisines: data?.cuisines ?? [],
+        costForTwo: data?.costForTwo,
+        sla: data?.sla ?? { slaString: `${data?.deliveryTime ?? 0} mins` },
+      },
+    };
+  });
+};
 
