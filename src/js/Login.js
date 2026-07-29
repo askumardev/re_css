@@ -5,10 +5,17 @@ import '../styles/main.css';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Add login logic here
+
+    if (!username.trim() || !password.trim()) {
+      setError('Username and password are required.');
+      return;
+    }
+
+    setError('');
     console.log('Logged in with', username, password);
   };
 
@@ -32,6 +39,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
+        {error && <p className="error-message">{error}</p>}
         <button type="submit">Login</button>
       </form>
     </div>
