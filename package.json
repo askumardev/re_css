@@ -15,14 +15,12 @@
   },
   "scripts": {
     "start": "FAST_REFRESH=false PORT=4000 react-scripts start",
-    "foodora": "parcel serve foodora/index.html --port 5000",
     "bistro": "parcel serve bistro/index.html --port 5001",
-    "samples": "parcel serve samples/index.html --port 5002",
+    "foodex": "parcel serve foodex/index.html --port 5001",
     "build": "react-scripts build",
     "clean": "rm -rf coverage dist build",
-    "build:foodora": "parcel build foodora/index.html",
-    "build:bistro": "parcel build bistro/index.html",
-    "build:samples": "parcel build samples/index.html"
+    "build:foodex": "parcel build foodex/index.html",
+    "build:bistro": "parcel build bistro/index.html"
   },
   "eslintConfig": {
     "extends": [
