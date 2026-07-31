@@ -27,9 +27,16 @@
         </h1>
       );
 
+      const subtitle = (
+        <h3 className="subtitle" tabIndex="5">
+          This is subtitle!
+        </h3>
+      );
+
       const Content = () => (
         <div id="content">
           <Title />
+          {subtitle}
           <p>React is a JavaScript library for building user interfaces.</p>
         </div>
       );
