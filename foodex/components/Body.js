@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import data from "../utils/data.json";
 import RestaurantCard from "./RestaurantCard.jsx";
 
@@ -24,16 +24,31 @@ const getRestaurantData = () => {
 };
 
 const Body = () => {
-  const restaurantData = getRestaurantData();
+  const allRestaurants = getRestaurantData();
+  const [showTopRated, setShowTopRated] = useState(false);
+
+  const filteredRestaurants = showTopRated
+    ? allRestaurants.filter((item) => {
+        const rating = Number(item?.info?.avgRating || item?.info?.avgRatingString);
+        return rating >= 4.5;
+      })
+    : allRestaurants;
 
   return (
     <div className="body">
-      <div className="search">Search</div>
+      <div className="search">
+        <button
+          className="filter-btn"
+          onClick={() => setShowTopRated((prev) => !prev)}
+        >
+          {showTopRated ? "Show All Restaurants" : "Top Rated Restaurants"}
+        </button>
+      </div>
       <div className="res-container">
-        {restaurantData.length === 0 ? (
+        {filteredRestaurants.length === 0 ? (
           <div>No restaurants available.</div>
         ) : (
-          restaurantData.map((restaurantItem) => {
+          filteredRestaurants.map((restaurantItem) => {
             const info = restaurantItem?.info || {};
             const resName = info.name || "Unknown Restaurant";
             const cuisine = Array.isArray(info.cuisines)
