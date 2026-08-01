@@ -1,10 +1,12 @@
+import { HEADER_LOGO_URL } from "../utils/contants";
+
 // Header component: static top bar.
 const Header = () => {
   return (
     <div className="header">
       <div className="logo-container">
         <img
-          src="https://img.magnific.com/free-vector/food-shopping-logo-template-design_460848-10299.jpg"
+          src={HEADER_LOGO_URL}
           alt="Foodex Logo"
           className="logo"
         />

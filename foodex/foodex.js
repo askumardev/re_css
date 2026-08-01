@@ -1,90 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./foodex.css";
-import data from "./data.json";
-import Header from "./Header.jsx";
-
-// URL prefix for restaurant images.
-const CDN_URL = "https://media-assets.swiggy.com/swiggy/image/upload/";
-
-// RestaurantCard displays one restaurant item.
-const RestaurantCard = ({ resName, cuisine, rating, deliveryTime, imageId }) => {
-  const imageUrl = imageId
-    ? `${CDN_URL}${imageId}`
-    : "https://img.freepik.com/free-vector/restaurant-logo-template_23-2148474890.jpg";
-
-  return (
-    <div className="res-card" style={{ backgroundColor: "#f0f0f0" }}>
-      <img className="res-logo" src={imageUrl} alt={resName} />
-      <h3>{resName}</h3>
-      <h4>{cuisine}</h4>
-      <div className="res-details">
-        <span>Rating: {rating}</span>
-        <span>Delivery: {deliveryTime}</span>
-      </div>
-    </div>
-  );
-};
-
-// Return the restaurant list from the JSON file.
-const getRestaurantData = () => {
-  const cards = data?.data?.cards;
-
-  if (!Array.isArray(cards)) {
-    return [];
-  }
-
-  const restaurantCard = cards.find((card) => {
-    return (
-      Array.isArray(
-        card?.card?.card?.gridElements?.infoWithStyle?.restaurants
-      )
-    );
-  });
-
-  return (
-    restaurantCard?.card?.card?.gridElements?.infoWithStyle?.restaurants || []
-  );
-};
-
-const Body = () => {
-  const restaurantData = getRestaurantData();
-
-  return (
-    <div className="body">
-      <div className="search">Search</div>
-      <div className="res-container">
-        {restaurantData.length === 0 ? (
-          <div>No restaurants available.</div>
-        ) : (
-          restaurantData.map((restaurantItem) => {
-            const info = restaurantItem?.info || {};
-            const resName = info.name || "Unknown Restaurant";
-            const cuisine = Array.isArray(info.cuisines)
-              ? info.cuisines.join(", ")
-              : "Cuisine not available";
-            const rating = info.avgRatingString || info.avgRating || "N/A";
-            const deliveryTime = info.sla?.deliveryTime
-              ? `${info.sla.deliveryTime} mins`
-              : info.sla?.slaString || "N/A";
-            const imageId = info.cloudinaryImageId;
-
-            return (
-              <RestaurantCard
-                key={info.id || resName}
-                resName={resName}
-                cuisine={cuisine}
-                rating={rating}
-                deliveryTime={deliveryTime}
-                imageId={imageId}
-              />
-            );
-          })
-        )}
-      </div>
-    </div>
-  );
-};
+import data from "./utils/data.json";
+import Header from "./components/Header.jsx";
+import Body from "./components/Body.js";
 
 const AppLayout = () => {
   return (
