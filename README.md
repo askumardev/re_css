@@ -13,16 +13,16 @@ npm install
 Useful scripts:
 
 - `npm start` — Run the CRA development server (default PORT=4000 in this repo).
-- `npm run foodora` — Serve the `foodora` sample with Parcel on port 5000.
+- `npm run foodex` — Serve the `foodex` sample with Parcel on port 5000.
 - `npm run bistro` — Serve the new `bistro` sample with Parcel on port 5001.
 - `npm run build` — Build the React app for production.
-- `npm run build:foodora` — Build the `foodora` sample with Parcel.
+- `npm run build:foodex` — Build the `foodex` sample with Parcel.
 - `npm run build:bistro` — Build the `bistro` sample with Parcel.
 - `npm run clean` — Remove generated artifact directories (`coverage`, `dist`, `build`).
 
 Development notes:
 
-- Keep working code under `src/` and the `foodora` and `bistro` samples at top-level.
+- Keep working code under `src/` and the `foodex` and `bistro` samples at top-level.
 - The sample index page is at `samples/index.html` and links to the running sample dev servers on their ports (Foodora: `http://localhost:5000`, Bistro: `http://localhost:5001`).
 
 Start samples in separate terminals before using the launcher:

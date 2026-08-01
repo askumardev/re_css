@@ -3,13 +3,19 @@ import ReactDOM from "react-dom/client";
 import "./foodex.css";
 import data from "./data.json";
 
+// URL prefix for restaurant images.
 const CDN_URL = "https://media-assets.swiggy.com/swiggy/image/upload/";
 
+// Header component: static top bar.
 const Header = () => {
   return (
     <div className="header">
       <div className="logo-container">
-        <img src="https://img.magnific.com/free-vector/food-shopping-logo-template-design_460848-10299.jpg" alt="Foodex Logo" className="logo" />
+        <img
+          src="https://img.magnific.com/free-vector/food-shopping-logo-template-design_460848-10299.jpg"
+          alt="Foodex Logo"
+          className="logo"
+        />
       </div>
       <div className="nav-items">
         <ul>
@@ -18,13 +24,13 @@ const Header = () => {
           <li><a href="/menu">About Us</a></li>
           <li><a href="/contact">Contact</a></li>
         </ul>
-      </div>       
+      </div>
     </div>
   );
 };
 
-const RestaurantCard = (props) => {
-  const { resName, cuisine, rating, deliveryTime, imageId } = props;
+// RestaurantCard displays one restaurant item.
+const RestaurantCard = ({ resName, cuisine, rating, deliveryTime, imageId }) => {
   const imageUrl = imageId
     ? `${CDN_URL}${imageId}`
     : "https://img.freepik.com/free-vector/restaurant-logo-template_23-2148474890.jpg";
@@ -36,16 +42,35 @@ const RestaurantCard = (props) => {
       <h4>{cuisine}</h4>
       <div className="res-details">
         <span>Rating: {rating}</span>
-        <span>Delivery: {deliveryTime} mins</span>
+        <span>Delivery: {deliveryTime}</span>
       </div>
     </div>
   );
 };
 
+// Return the restaurant list from the JSON file.
+const getRestaurantData = () => {
+  const cards = data?.data?.cards;
+
+  if (!Array.isArray(cards)) {
+    return [];
+  }
+
+  const restaurantCard = cards.find((card) => {
+    return (
+      Array.isArray(
+        card?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      )
+    );
+  });
+
+  return (
+    restaurantCard?.card?.card?.gridElements?.infoWithStyle?.restaurants || []
+  );
+};
+
 const Body = () => {
-  const restaurantData = data?.data?.cards?.find(
-    (card) => card?.card?.card?.gridElements?.infoWithStyle?.restaurants
-  )?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
+  const restaurantData = getRestaurantData();
 
   return (
     <div className="body">
@@ -57,9 +82,13 @@ const Body = () => {
           restaurantData.map((restaurantItem) => {
             const info = restaurantItem?.info || {};
             const resName = info.name || "Unknown Restaurant";
-            const cuisine = info.cuisines ? info.cuisines.join(", ") : "Cuisine not available";
+            const cuisine = Array.isArray(info.cuisines)
+              ? info.cuisines.join(", ")
+              : "Cuisine not available";
             const rating = info.avgRatingString || info.avgRating || "N/A";
-            const deliveryTime = info.sla?.deliveryTime || info.sla?.slaString || "N/A";
+            const deliveryTime = info.sla?.deliveryTime
+              ? `${info.sla.deliveryTime} mins`
+              : info.sla?.slaString || "N/A";
             const imageId = info.cloudinaryImageId;
 
             return (
