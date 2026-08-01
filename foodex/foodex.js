@@ -2,32 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./foodex.css";
 import data from "./data.json";
+import Header from "./Header.jsx";
 
 // URL prefix for restaurant images.
 const CDN_URL = "https://media-assets.swiggy.com/swiggy/image/upload/";
-
-// Header component: static top bar.
-const Header = () => {
-  return (
-    <div className="header">
-      <div className="logo-container">
-        <img
-          src="https://img.magnific.com/free-vector/food-shopping-logo-template-design_460848-10299.jpg"
-          alt="Foodex Logo"
-          className="logo"
-        />
-      </div>
-      <div className="nav-items">
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/menu">Menu</a></li>
-          <li><a href="/menu">About Us</a></li>
-          <li><a href="/contact">Contact</a></li>
-        </ul>
-      </div>
-    </div>
-  );
-};
 
 // RestaurantCard displays one restaurant item.
 const RestaurantCard = ({ resName, cuisine, rating, deliveryTime, imageId }) => {
