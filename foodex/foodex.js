@@ -20,10 +20,15 @@ const Header = () => {
   );
 };
 
-const RestaurantCard = () => {
+const RestaurantCard = (props) => {
+  const { resName, cuisine } = props;
   return (
-    <div className="res-card">
-      <h1>RestroCards</h1>
+    <div className="res-card" style={{ backgroundColor: "#f0f0f0" }}>
+      <img className="res-logo" src="https://img.freepik.com/free-vector/restaurant-logo-template_23-2148474890.jpg" alt="Restaurant Logo" />
+      <h3>{resName}</h3>
+      <h4>{cuisine}</h4>
+      <h4>4.4 </h4>
+      <h4>40 mins </h4>
     </div>
   );
 };
@@ -33,7 +38,8 @@ const Body = () => {
     <div className="body">
       <div className="search">Search</div>
       <div className="res-container">
-        <RestaurantCard />
+        <RestaurantCard resName="Meghana" cuisine="Biryani, North Indian"/>
+        <RestaurantCard resName="Spice Garden" cuisine="Burger, Fast Food"/>
       </div>       
     </div>
   );

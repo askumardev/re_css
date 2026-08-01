@@ -21,3 +21,22 @@
   padding: 10px;
   margin: 10px;
 }
+
+.res-card{
+  width:200px;
+  height: 400px;
+}
+.res-container{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.res-card:hover{
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.res-logo{
+  width: 190px;
+}
