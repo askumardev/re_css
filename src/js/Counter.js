@@ -22,9 +22,9 @@ function Counter() {
         <Advice />
       </div>
       <br /><br />
-      <button onClick={() => {setCount(count+1)}}>Increment</button>
+      <button onClick={() => {setCount(count+1)}}>+</button>
       <h1>{count}</h1>
-      <button onClick={() => {setCount(count-1)}}>Decrement</button>
+      <button onClick={() => {setCount(count-1)}}>-</button>
     </div>
   )
 }
