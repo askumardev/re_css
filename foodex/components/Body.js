@@ -1,92 +1,78 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import data from "../utils/data.json";
 import RestaurantCard from "./RestaurantCard.jsx";
 
-// Helper function to read the restaurant array from the local JSON file.
-// The JSON data is nested, so we first access the main cards array and
-// then locate the specific card object that contains a restaurant list.
-const getRestaurantData = () => {
-  const cards = data?.data?.cards;
+const SWIGGY_URL = process.env.REACT_APP_SWIGGY_PROXY_URL || "http://localhost:5000/api/restaurants";
 
-  // If the cards field is missing or not an array, return an empty list.
-  if (!Array.isArray(cards)) {
-    return [];
-  }
-
-  // Find the first card object that contains a restaurants array.
-  const restaurantCard = cards.find((card) => {
-    return (
-      Array.isArray(
-        card?.card?.card?.gridElements?.infoWithStyle?.restaurants
-      )
-    );
-  });
-
-  // Return the restaurants array, or an empty list when it is not found.
-  return (
-    restaurantCard?.card?.card?.gridElements?.infoWithStyle?.restaurants || []
+// Simple helper: find the nested restaurants array inside cards
+function extractRestaurantsFromCards(cards = []) {
+  if (!Array.isArray(cards)) return [];
+  const card = cards.find((c) =>
+    Array.isArray(c?.card?.card?.gridElements?.infoWithStyle?.restaurants)
   );
-};
+  return card?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
+}
 
-const Body = () => {
+export default function Body() {
+  const [restaurants, setRestaurants] = useState([]);
   const [showTopRated, setShowTopRated] = useState(false);
-  const restaurantData = getRestaurantData();
+  const [loading, setLoading] = useState(true);
 
-  // Show all restaurants or filter only those with rating >= 4.5.
-  const filteredRestaurants = restaurantData.filter((restaurantItem) => {
-    if (!showTopRated) {
-      return true;
+  useEffect(() => {
+    async function load() {
+      setLoading(true);
+      try {
+        const res = await fetch(SWIGGY_URL);
+        const json = await res.json();
+        const remote = extractRestaurantsFromCards(json?.data?.cards);
+        if (remote && remote.length > 0) {
+          setRestaurants(remote);
+        } else {
+          setRestaurants(extractRestaurantsFromCards(data?.data?.cards));
+        }
+      } catch (err) {
+        console.warn("Fetch failed, using local data:", err);
+        setRestaurants(extractRestaurantsFromCards(data?.data?.cards));
+      } finally {
+        setLoading(false);
+      }
     }
+    load();
+  }, []);
 
-    const ratingValue = parseFloat(
-      restaurantItem?.info?.avgRatingString || restaurantItem?.info?.avgRating
-    );
+  const visible = showTopRated
+    ? restaurants.filter((r) => {
+        const rating = parseFloat(
+          r?.info?.avgRatingString || r?.info?.avgRating
+        );
+        return !Number.isNaN(rating) && rating >= 4.5;
+      })
+    : restaurants;
 
-    return !Number.isNaN(ratingValue) && ratingValue >= 4.5;
-  });
+  if (loading) return <div className="res-container">Loading restaurants…</div>;
 
   return (
     <div className="body">
       <div className="search">
-        <button
-          className="filter-btn"
-          onClick={() => setShowTopRated((prev) => !prev)}
-        >
+        <button className="filter-btn" onClick={() => setShowTopRated((s) => !s)}>
           {showTopRated ? "Show All Restaurants" : "Top Rated Restaurants"}
         </button>
       </div>
+
       <div className="res-container">
-        {filteredRestaurants.length === 0 ? (
-          // Show a friendly message when no restaurant data is available.
+        {visible.length === 0 ? (
           <div>No restaurants available.</div>
         ) : (
-          // Map each restaurant item to a RestaurantCard component.
-          filteredRestaurants.map((restaurantItem) => {
+          visible.map((restaurantItem) => {
             const info = restaurantItem?.info || {};
-            const resName = info.name || "Unknown Restaurant";
-
-            // Join cuisine names with commas if the data is an array.
-            const cuisine = Array.isArray(info.cuisines)
-              ? info.cuisines.join(", ")
-              : "Cuisine not available";
-
-            // Use the rating string when available, or fallback to a numeric value.
-            const rating = info.avgRatingString || info.avgRating || "N/A";
-
-            // Format delivery time if it exists, otherwise use a fallback string.
-            const deliveryTime = info.sla?.deliveryTime
-              ? `${info.sla.deliveryTime} mins`
-              : info.sla?.slaString || "N/A";
-            const imageId = info.cloudinaryImageId;
-
             return (
               <RestaurantCard
-                key={info.id || resName}
-                resName={resName}
-                cuisine={cuisine}
-                rating={rating}
-                deliveryTime={deliveryTime}
-                imageId={imageId}
+                key={info.id || info.name}
+                resName={info.name || "Unknown"}
+                cuisine={Array.isArray(info.cuisines) ? info.cuisines.join(", ") : "N/A"}
+                rating={info.avgRatingString || info.avgRating || "N/A"}
+                deliveryTime={info.sla?.deliveryTime ? `${info.sla.deliveryTime} mins` : info.sla?.slaString || "N/A"}
+                imageId={info.cloudinaryImageId}
               />
             );
           })
@@ -94,6 +80,4 @@ const Body = () => {
       </div>
     </div>
   );
-};
-
-export default Body;
+}

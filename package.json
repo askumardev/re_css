@@ -16,7 +16,8 @@
   "scripts": {
     "start": "FAST_REFRESH=false PORT=4000 react-scripts start",
     "bistro": "parcel serve bistro/index.html --port 5001",
-    "foodex": "parcel serve foodex/index.html --port 5001",
+    "foodex": "parcel serve foodex/index.html --port 5002",
+    "proxy-server": "node proxy/server.js",
     "build": "react-scripts build",
     "clean": "rm -rf coverage dist build",
     "build:foodex": "parcel build foodex/index.html",
