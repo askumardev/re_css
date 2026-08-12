@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import data from "../utils/data.json";
 import RestaurantCard from "./RestaurantCard.jsx";
 
@@ -17,6 +17,8 @@ export default function Body() {
   const [restaurants, setRestaurants] = useState([]);
   const [showTopRated, setShowTopRated] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [searchText, setSearchText] = useState("");
+  const searchInputRef = useRef(null);
 
   useEffect(() => {
     async function load() {
@@ -40,20 +42,50 @@ export default function Body() {
     load();
   }, []);
 
-  const visible = showTopRated
-    ? restaurants.filter((r) => {
-        const rating = parseFloat(
-          r?.info?.avgRatingString || r?.info?.avgRating
-        );
-        return !Number.isNaN(rating) && rating >= 4.5;
-      })
-    : restaurants;
+  const visible = restaurants.filter((r) => {
+    const info = r?.info || {};
+
+    // Top rated filter
+    if (showTopRated) {
+      const rating = parseFloat(info.avgRatingString || info.avgRating);
+      if (Number.isNaN(rating) || rating < 4.5) return false;
+    }
+
+    // Search filter (by restaurant name only)
+    if (searchText && searchText.trim()) {
+      const q = searchText.trim().toLowerCase();
+      const name = (info.name || "").toLowerCase();
+      if (!name.includes(q)) return false;
+    }
+
+    return true;
+  });
 
   if (loading) return <div className="res-container">Loading restaurants…</div>;
 
   return (
     <div className="body">
-      <div className="search">
+      <div className="filter">
+        <div className="search">
+            <input
+              ref={searchInputRef}
+              type="text"
+              className="search-input"
+              placeholder="Search restaurants..."
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
+            <button
+              className="search-btn"
+              onClick={() => {
+                if (searchText) setSearchText("");
+                else searchInputRef.current?.focus();
+              }}
+            >
+              {searchText ? "Clear" : "Search"}
+            </button>
+        </div>
+        
         <button className="filter-btn" onClick={() => setShowTopRated((s) => !s)}>
           {showTopRated ? "Show All Restaurants" : "Top Rated Restaurants"}
         </button>
