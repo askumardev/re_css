@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import data from "../utils/data.json";
+// import data from "../utils/data.json";
 import RestaurantCard from "./RestaurantCard.jsx";
+import ShimmerCard from "./ShimmerCard.jsx";
 
 const SWIGGY_URL = process.env.REACT_APP_SWIGGY_PROXY_URL || "http://localhost:5000/api/restaurants";
 
@@ -61,7 +62,30 @@ export default function Body() {
     return true;
   });
 
-  if (loading) return <div className="res-container">Loading restaurants…</div>;
+  if (loading) {
+    return (
+      <div className="body">
+        <div className="filter">
+          <div className="search">
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Search restaurants..."
+              value={searchText}
+              disabled
+            />
+            <button className="search-btn" disabled>Search</button>
+          </div>
+          <button className="filter-btn" disabled>Top Rated Restaurants</button>
+        </div>
+        <div className="res-container">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <ShimmerCard key={index} />
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="body">
