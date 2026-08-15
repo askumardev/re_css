@@ -1,5 +1,6 @@
 import { HEADER_LOGO_URL } from "../utils/contants";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 // Header component: static top bar.
 const Header = () => {
@@ -15,10 +16,10 @@ const Header = () => {
       </div>
       <div className="nav-items">
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/menu">Menu</a></li>
-          <li><a href="/menu">About Us</a></li>
-          <li><a href="/contact">Contact</a></li>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/menu">Menu</Link></li>
+          <li><Link to="/about">About Us</Link></li>
+          <li><Link to="/contact">Contact</Link></li>
           <button className="login-btn" onClick={() => btnName === "Login" ? setBtnName("Logout") : setBtnName("Login")}>
             {btnName}
           </button>
