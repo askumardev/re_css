@@ -51,6 +51,37 @@ app.get('/api/restaurants', async (req, res) => {
   }
 });
 
+app.get('/api/menu/:restaurantId', async (req, res) => {
+  // Require Origin header matching ALLOWED_ORIGIN
+  const origin = req.get('origin');
+  if (origin !== ALLOWED_ORIGIN) {
+    console.warn('Blocked request from origin:', origin);
+    return res.status(403).json({ error: 'Forbidden origin' });
+  }
+  try {
+    const { restaurantId } = req.params;
+    const targetUrl = `https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9351929&lng=77.62448069999999&restaurantId=${restaurantId}`;
+    const response = await axios.get(targetUrl, {
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36',
+        Accept: 'application/json, text/plain, */*',
+        Referer: 'https://www.swiggy.com/',
+        Origin: 'https://www.swiggy.com',
+        'Accept-Language': 'en-US,en;q=0.9',
+      },
+      timeout: 10000,
+    });
+    res.json(response.data);
+  } catch (err) {
+    console.error('Menu proxy fetch error:', err.message || err);
+    if (err.response) {
+      console.error('Upstream status:', err.response.status);
+    }
+    res.status(502).json({ error: 'Failed to fetch menu' });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`CORS proxy running on http://localhost:${PORT}`);
 });

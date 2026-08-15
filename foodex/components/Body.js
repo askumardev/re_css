@@ -22,6 +22,7 @@ export default function Body() {
   const searchInputRef = useRef(null);
 
   useEffect(() => {
+    console.log("useEffect...")
     async function load() {
       setLoading(true);
       try {
