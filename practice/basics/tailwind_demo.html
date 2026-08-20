@@ -17,679 +17,678 @@
 
   <body class="bg-gray-100">
 
-  <div id="root"></div>
+    <div id="root"></div>
 
-  <script type="text/babel">
+    <script type="text/babel">
 
-  const {useState, useEffect} = React;
+      const {useState, useEffect} = React;
 
-  /* ---------------- Navbar ---------------- */
+      /* ---------------- Navbar ---------------- */
 
-  function Navbar(){
-    return(
-      <nav className="bg-slate-900 text-white sticky top-0 shadow">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-bold">React UI Kit</h1>
+      function Navbar(){
+        return(
+          <nav className="bg-slate-900 text-white sticky top-0 shadow">
+            <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+              <h1 className="text-xl font-bold">React UI Kit</h1>
 
-          <div className="hidden md:flex gap-6 text-sm">
-            <a href="#cards" className="hover:text-cyan-400">Cards</a>
-            <a href="#forms" className="hover:text-cyan-400">Forms</a>
-            <a href="#table" className="hover:text-cyan-400">Table</a>
-          </div>
-        </div>
-      </nav>
-    );
-  }
+              <div className="hidden md:flex gap-6 text-sm">
+                <a href="#cards" className="hover:text-cyan-400">Cards</a>
+                <a href="#forms" className="hover:text-cyan-400">Forms</a>
+                <a href="#table" className="hover:text-cyan-400">Table</a>
+              </div>
+            </div>
+          </nav>
+        );
+      }
 
-  /* ---------------- Hero ---------------- */
+      /* ---------------- Hero ---------------- */
 
-  function Hero(){
-    return(
-      <section className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
-        <div className="max-w-7xl mx-auto px-6 py-20 text-center">
-          <h2 className="text-5xl font-bold mb-4">
-            React + Tailwind Components
-          </h2>
+      function Hero(){
+        return(
+          <section className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+            <div className="max-w-7xl mx-auto px-6 py-20 text-center">
+              <h2 className="text-5xl font-bold mb-4">
+                React + Tailwind Components
+              </h2>
 
-          <p className="text-lg opacity-90 mb-8">
-            Production-style reusable UI built with functional React components.
-          </p>
+              <p className="text-lg opacity-90 mb-8">
+                Production-style reusable UI built with functional React components.
+              </p>
 
-          <button className="bg-yellow-400 hover:bg-yellow-300 text-black font-semibold px-6 py-3 rounded-lg">
-            Get Started
-          </button>
-        </div>
-      </section>
-    );
-  }
+              <button className="bg-yellow-400 hover:bg-yellow-300 text-black font-semibold px-6 py-3 rounded-lg">
+                Get Started
+              </button>
+            </div>
+          </section>
+        );
+      }
 
-  /* ---------------- Alerts ---------------- */
+      /* ---------------- Alerts ---------------- */
 
-  function Alerts(){
-    const alerts=[
-      ["green","Success! Data saved successfully."],
-      ["red","Error! Something went wrong."],
-      ["yellow","Warning! Please review the form."],
-      ["blue","Info! Tailwind is loaded."]
-    ];
+      function Alerts(){
+        const alerts=[
+          ["green","Success! Data saved successfully."],
+          ["red","Error! Something went wrong."],
+          ["yellow","Warning! Please review the form."],
+          ["blue","Info! Tailwind is loaded."]
+        ];
 
-    return(
-      <Section title="Alerts">
-        {alerts.map(([c,msg],i)=>(
-          <div key={i}
-            className={`mb-3 rounded-lg px-4 py-3 bg-${c}-100 text-${c}-800`}>
-            {msg}
-          </div>
-        ))}
-      </Section>
-    )
-  }
+        return(
+          <Section title="Alerts">
+            {alerts.map(([c,msg],i)=>(
+              <div key={i}
+                className={`mb-3 rounded-lg px-4 py-3 bg-${c}-100 text-${c}-800`}>
+                {msg}
+              </div>
+            ))}
+          </Section>
+        )
+      }
 
-  /* ---------------- Buttons ---------------- */
+      /* ---------------- Buttons ---------------- */
 
-  function Buttons(){
-    const styles=[
-      "bg-blue-600",
-      "bg-gray-600",
-      "bg-green-600",
-      "bg-red-600",
-      "bg-yellow-500 text-black",
-      "bg-cyan-600",
-      "bg-slate-800"
-    ];
+      function Buttons(){
+        const styles=[
+          "bg-blue-600",
+          "bg-gray-600",
+          "bg-green-600",
+          "bg-red-600",
+          "bg-yellow-500 text-black",
+          "bg-cyan-600",
+          "bg-slate-800"
+        ];
 
-    return(
-      <Section title="Buttons">
-        <div className="flex flex-wrap gap-3 mb-6">
-          {styles.map((s,i)=>(
-            <button key={i}
-              className={`${s} text-white px-4 py-2 rounded-lg hover:opacity-90`}>
-              Button
-            </button>
-          ))}
-        </div>
+        return(
+          <Section title="Buttons">
+            <div className="flex flex-wrap gap-3 mb-6">
+              {styles.map((s,i)=>(
+                <button key={i}
+                  className={`${s} text-white px-4 py-2 rounded-lg hover:opacity-90`}>
+                  Button
+                </button>
+              ))}
+            </div>
 
-        <div className="inline-flex rounded-lg overflow-hidden border">
-          {["Left","Middle","Right"].map(btn=>(
-            <button key={btn}
-              className="px-4 py-2 bg-white hover:bg-gray-100 border-r last:border-r-0">
-              {btn}
-            </button>
-          ))}
-        </div>
-      </Section>
-    )
-  }
+            <div className="inline-flex rounded-lg overflow-hidden border">
+              {["Left","Middle","Right"].map(btn=>(
+                <button key={btn}
+                  className="px-4 py-2 bg-white hover:bg-gray-100 border-r last:border-r-0">
+                  {btn}
+                </button>
+              ))}
+            </div>
+          </Section>
+        )
+      }
 
-  /* ---------------- Badges ---------------- */
+      /* ---------------- Badges ---------------- */
 
-  function Badges(){
-    return(
-      <Section title="Badges">
-        <div className="flex items-center gap-3 flex-wrap">
-          <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">Rails</span>
-          <span className="bg-cyan-600 text-white px-3 py-1 rounded-full text-sm">React</span>
-          <span className="bg-green-600 text-white px-3 py-1 rounded-full text-sm">Python</span>
+      function Badges(){
+        return(
+          <Section title="Badges">
+            <div className="flex items-center gap-3 flex-wrap">
+              <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">Rails</span>
+              <span className="bg-cyan-600 text-white px-3 py-1 rounded-full text-sm">React</span>
+              <span className="bg-green-600 text-white px-3 py-1 rounded-full text-sm">Python</span>
 
-          <div className="ml-auto relative">
-            <span className="text-lg">Notifications</span>
-            <span className="absolute -top-2 -right-4 bg-red-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-              9
-            </span>
-          </div>
-        </div>
-      </Section>
-    )
-  }
+              <div className="ml-auto relative">
+                <span className="text-lg">Notifications</span>
+                <span className="absolute -top-2 -right-4 bg-red-600 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                  9
+                </span>
+              </div>
+            </div>
+          </Section>
+        )
+      }
 
-  /* ---------------- Cards ---------------- */
+      /* ---------------- Cards ---------------- */
 
-  function Cards(){
+      function Cards(){
 
-    const cards=[1,2,3];
+        const cards=[1,2,3];
 
-    return(
-      <Section title="Cards" id="cards">
-        <div className="grid md:grid-cols-3 gap-6">
+        return(
+          <Section title="Cards" id="cards">
+            <div className="grid md:grid-cols-3 gap-6">
 
-          {cards.map(card=>(
-            <div key={card}
-              className="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden">
+              {cards.map(card=>(
+                <div key={card}
+                  className="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden">
 
-              <div className="h-40 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-5xl text-white">
-                {card}
+                  <div className="h-40 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-5xl text-white">
+                    {card}
+                  </div>
+
+                  <div className="p-5">
+                    <h3 className="font-bold text-lg mb-2">Component Card {card}</h3>
+                    <p className="text-gray-600 mb-4">
+                      A reusable Tailwind card rendered using React map().
+                    </p>
+
+                    <button className="bg-blue-600 text-white px-4 py-2 rounded-lg">
+                      View
+                    </button>
+                  </div>
+
+                </div>
+              ))}
+
+            </div>
+          </Section>
+        )
+      }
+
+      /* ---------------- Accordion ---------------- */
+
+      function Accordion(){
+
+        const [open,setOpen]=useState(1);
+
+        return(
+          <Section title="Accordion">
+
+            {[1,2,3].map(item=>(
+              <div key={item} className="mb-3 bg-white rounded-lg shadow">
+
+                <button
+                  onClick={()=>setOpen(open===item?0:item)}
+                  className="w-full px-5 py-4 flex justify-between font-semibold">
+
+                  Section {item}
+
+                  <span>{open===item?"−":"+"}</span>
+
+                </button>
+
+                {open===item &&
+                  <div className="px-5 pb-4 text-gray-600">
+                    Content for accordion section {item}.
+                  </div>
+                }
+
+              </div>
+            ))}
+
+          </Section>
+        )
+      }
+
+      /* ---------------- Tabs ---------------- */
+
+      function Tabs(){
+
+        const [tab,setTab]=useState("home");
+
+        return(
+          <Section title="Tabs">
+
+            <div className="flex border-b">
+
+              {["home","profile","contact"].map(t=>(
+                <button
+                  key={t}
+                  onClick={()=>setTab(t)}
+                  className={`px-5 py-3 capitalize border-b-2 ${
+                    tab===t
+                    ? "border-blue-600 text-blue-600"
+                    : "border-transparent text-gray-500"
+                  }`}>
+                  {t}
+                </button>
+              ))}
+
+            </div>
+
+            <div className="bg-white p-5 rounded-b-lg shadow">
+              {tab==="home" && "Welcome to the Home tab."}
+              {tab==="profile" && "This is the Profile content."}
+              {tab==="contact" && "Contact information displayed here."}
+            </div>
+
+          </Section>
+        )
+      }
+
+      /* ---------------- Progress ---------------- */
+
+      function Progress(){
+        const bars=[
+          ["25%",25,"bg-blue-600"],
+          ["60%",60,"bg-green-600"],
+          ["90%",90,"bg-red-600"]
+        ];
+
+        return(
+          <Section title="Progress Bars">
+            {bars.map(([label,val,color])=>(
+              <div key={label} className="mb-4">
+                <div className="flex justify-between text-sm mb-1">
+                  <span>{label}</span>
+                </div>
+
+                <div className="bg-gray-200 rounded-full h-4 overflow-hidden">
+                  <div
+                    className={`${color} h-full text-xs text-white text-center`}
+                    style={{width:`${val}%`}}>
+                    {label}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </Section>
+        )
+      }
+
+      /* ---------------- Table ---------------- */
+
+      function TableComponent(){
+
+        const users=[
+          {id:1,name:"Satish",role:"Rails"},
+          {id:2,name:"John",role:"React"},
+          {id:3,name:"Sara",role:"Python"}
+        ];
+
+        return(
+          <Section title="Responsive Table" id="table">
+
+            <div className="overflow-x-auto bg-white rounded-lg shadow">
+
+              <table className="min-w-full">
+
+                <thead className="bg-slate-800 text-white">
+                  <tr>
+                    <th className="p-3 text-left">ID</th>
+                    <th className="p-3 text-left">Name</th>
+                    <th className="p-3 text-left">Role</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {users.map(user=>(
+                    <tr key={user.id} className="border-t hover:bg-gray-50">
+                      <td className="p-3">{user.id}</td>
+                      <td className="p-3">{user.name}</td>
+                      <td className="p-3">{user.role}</td>
+                    </tr>
+                  ))}
+                </tbody>
+
+              </table>
+
+            </div>
+
+          </Section>
+        )
+      }
+
+      /* ---------------- Form ---------------- */
+
+      function Forms(){
+
+        const [form,setForm]=useState({
+          name:"",
+          email:"",
+          role:"Rails",
+          agree:false
+        });
+
+        const handle=e=>{
+          const {name,value,type,checked}=e.target;
+
+          setForm({
+            ...form,
+            [name]:type==="checkbox"?checked:value
+          });
+        }
+
+        const submit=e=>{
+          e.preventDefault();
+          alert(JSON.stringify(form,null,2));
+        }
+
+        return(
+          <Section title="Form" id="forms">
+
+            <form onSubmit={submit}
+              className="bg-white rounded-xl shadow p-6 grid md:grid-cols-2 gap-5">
+
+              <div>
+                <label className="block mb-2 font-medium">Name</label>
+                <input
+                  name="name"
+                  onChange={handle}
+                  className="w-full border rounded-lg px-3 py-2"/>
               </div>
 
-              <div className="p-5">
-                <h3 className="font-bold text-lg mb-2">Component Card {card}</h3>
-                <p className="text-gray-600 mb-4">
-                  A reusable Tailwind card rendered using React map().
-                </p>
+              <div>
+                <label className="block mb-2 font-medium">Email</label>
+                <input
+                  name="email"
+                  type="email"
+                  onChange={handle}
+                  className="w-full border rounded-lg px-3 py-2"/>
+              </div>
 
-                <button className="bg-blue-600 text-white px-4 py-2 rounded-lg">
-                  View
+              <div>
+                <label className="block mb-2 font-medium">Role</label>
+                <select
+                  name="role"
+                  onChange={handle}
+                  className="w-full border rounded-lg px-3 py-2">
+                  <option>Rails</option>
+                  <option>React</option>
+                  <option>Python</option>
+                </select>
+              </div>
+
+              <div className="flex items-center mt-8">
+                <input
+                  name="agree"
+                  type="checkbox"
+                  onChange={handle}
+                  className="mr-2"/>
+                Accept Terms
+              </div>
+
+              <div className="md:col-span-2">
+                <button className="bg-green-600 text-white px-5 py-2 rounded-lg">
+                  Submit
                 </button>
               </div>
 
-            </div>
-          ))}
+            </form>
 
-        </div>
-      </Section>
-    )
-  }
+          </Section>
+        )
+      }
 
-  /* ---------------- Accordion ---------------- */
+      /* ---------------- Dropdown ---------------- */
 
-  function Accordion(){
+      function Dropdown(){
 
-    const [open,setOpen]=useState(1);
+        const [open,setOpen]=useState(false);
+        const [value,setValue]=useState("Choose");
 
-    return(
-      <Section title="Accordion">
+        const options=["Rails","React","Python"];
 
-        {[1,2,3].map(item=>(
-          <div key={item} className="mb-3 bg-white rounded-lg shadow">
+        return(
+          <Section title="Dropdown">
 
-            <button
-              onClick={()=>setOpen(open===item?0:item)}
-              className="w-full px-5 py-4 flex justify-between font-semibold">
+            <div className="relative inline-block">
 
-              Section {item}
+              <button
+                onClick={()=>setOpen(!open)}
+                className="bg-gray-700 text-white px-5 py-2 rounded-lg">
+                {value}
+              </button>
 
-              <span>{open===item?"−":"+"}</span>
+              {open &&
+                <div className="absolute mt-2 bg-white rounded-lg shadow w-40">
+                  {options.map(option=>(
+                    <div
+                      key={option}
+                      onClick={()=>{
+                        setValue(option);
+                        setOpen(false);
+                      }}
+                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                      {option}
+                    </div>
+                  ))}
+                </div>
+              }
 
-            </button>
-
-            {open===item &&
-              <div className="px-5 pb-4 text-gray-600">
-                Content for accordion section {item}.
-              </div>
-            }
-
-          </div>
-        ))}
-
-      </Section>
-    )
-  }
-
-  /* ---------------- Tabs ---------------- */
-
-  function Tabs(){
-
-    const [tab,setTab]=useState("home");
-
-    return(
-      <Section title="Tabs">
-
-        <div className="flex border-b">
-
-          {["home","profile","contact"].map(t=>(
-            <button
-              key={t}
-              onClick={()=>setTab(t)}
-              className={`px-5 py-3 capitalize border-b-2 ${
-                tab===t
-                ? "border-blue-600 text-blue-600"
-                : "border-transparent text-gray-500"
-              }`}>
-              {t}
-            </button>
-          ))}
-
-        </div>
-
-        <div className="bg-white p-5 rounded-b-lg shadow">
-          {tab==="home" && "Welcome to the Home tab."}
-          {tab==="profile" && "This is the Profile content."}
-          {tab==="contact" && "Contact information displayed here."}
-        </div>
-
-      </Section>
-    )
-  }
-
-  /* ---------------- Progress ---------------- */
-
-  function Progress(){
-    const bars=[
-      ["25%",25,"bg-blue-600"],
-      ["60%",60,"bg-green-600"],
-      ["90%",90,"bg-red-600"]
-    ];
-
-    return(
-      <Section title="Progress Bars">
-        {bars.map(([label,val,color])=>(
-          <div key={label} className="mb-4">
-            <div className="flex justify-between text-sm mb-1">
-              <span>{label}</span>
             </div>
 
-            <div className="bg-gray-200 rounded-full h-4 overflow-hidden">
-              <div
-                className={`${color} h-full text-xs text-white text-center`}
-                style={{width:`${val}%`}}>
-                {label}
-              </div>
-            </div>
-          </div>
-        ))}
-      </Section>
-    )
-  }
+          </Section>
+        )
+      }
 
-  /* ---------------- Table ---------------- */
+      /* ---------------- List Group ---------------- */
 
-  function TableComponent(){
+      function ListGroup(){
 
-    const users=[
-      {id:1,name:"Satish",role:"Rails"},
-      {id:2,name:"John",role:"React"},
-      {id:3,name:"Sara",role:"Python"}
-    ];
+        const items=["Dashboard","Users","Reports","Settings"];
 
-    return(
-      <Section title="Responsive Table" id="table">
+        return(
+          <Section title="List Group">
 
-        <div className="overflow-x-auto bg-white rounded-lg shadow">
-
-          <table className="min-w-full">
-
-            <thead className="bg-slate-800 text-white">
-              <tr>
-                <th className="p-3 text-left">ID</th>
-                <th className="p-3 text-left">Name</th>
-                <th className="p-3 text-left">Role</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {users.map(user=>(
-                <tr key={user.id} className="border-t hover:bg-gray-50">
-                  <td className="p-3">{user.id}</td>
-                  <td className="p-3">{user.name}</td>
-                  <td className="p-3">{user.role}</td>
-                </tr>
-              ))}
-            </tbody>
-
-          </table>
-
-        </div>
-
-      </Section>
-    )
-  }
-
-  /* ---------------- Form ---------------- */
-
-  function Forms(){
-
-    const [form,setForm]=useState({
-      name:"",
-      email:"",
-      role:"Rails",
-      agree:false
-    });
-
-    const handle=e=>{
-      const {name,value,type,checked}=e.target;
-
-      setForm({
-        ...form,
-        [name]:type==="checkbox"?checked:value
-      });
-    }
-
-    const submit=e=>{
-      e.preventDefault();
-      alert(JSON.stringify(form,null,2));
-    }
-
-    return(
-      <Section title="Form" id="forms">
-
-        <form onSubmit={submit}
-          className="bg-white rounded-xl shadow p-6 grid md:grid-cols-2 gap-5">
-
-          <div>
-            <label className="block mb-2 font-medium">Name</label>
-            <input
-              name="name"
-              onChange={handle}
-              className="w-full border rounded-lg px-3 py-2"/>
-          </div>
-
-          <div>
-            <label className="block mb-2 font-medium">Email</label>
-            <input
-              name="email"
-              type="email"
-              onChange={handle}
-              className="w-full border rounded-lg px-3 py-2"/>
-          </div>
-
-          <div>
-            <label className="block mb-2 font-medium">Role</label>
-            <select
-              name="role"
-              onChange={handle}
-              className="w-full border rounded-lg px-3 py-2">
-              <option>Rails</option>
-              <option>React</option>
-              <option>Python</option>
-            </select>
-          </div>
-
-          <div className="flex items-center mt-8">
-            <input
-              name="agree"
-              type="checkbox"
-              onChange={handle}
-              className="mr-2"/>
-            Accept Terms
-          </div>
-
-          <div className="md:col-span-2">
-            <button className="bg-green-600 text-white px-5 py-2 rounded-lg">
-              Submit
-            </button>
-          </div>
-
-        </form>
-
-      </Section>
-    )
-  }
-
-  /* ---------------- Dropdown ---------------- */
-
-  function Dropdown(){
-
-    const [open,setOpen]=useState(false);
-    const [value,setValue]=useState("Choose");
-
-    const options=["Rails","React","Python"];
-
-    return(
-      <Section title="Dropdown">
-
-        <div className="relative inline-block">
-
-          <button
-            onClick={()=>setOpen(!open)}
-            className="bg-gray-700 text-white px-5 py-2 rounded-lg">
-            {value}
-          </button>
-
-          {open &&
-            <div className="absolute mt-2 bg-white rounded-lg shadow w-40">
-              {options.map(option=>(
+            <div className="bg-white rounded-xl shadow divide-y">
+              {items.map((item,index)=>(
                 <div
-                  key={option}
-                  onClick={()=>{
-                    setValue(option);
-                    setOpen(false);
-                  }}
-                  className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                  {option}
+                  key={item}
+                  className={`px-5 py-3 ${
+                    index===0
+                    ?"bg-blue-600 text-white"
+                    :"hover:bg-gray-50"
+                  }`}>
+                  {item}
                 </div>
               ))}
             </div>
-          }
 
-        </div>
+          </Section>
+        )
+      }
 
-      </Section>
-    )
-  }
+      /* ---------------- Pagination ---------------- */
 
-  /* ---------------- List Group ---------------- */
+      function Pagination(){
 
-  function ListGroup(){
+        const [page,setPage]=useState(1);
 
-    const items=["Dashboard","Users","Reports","Settings"];
+        return(
+          <Section title="Pagination">
 
-    return(
-      <Section title="List Group">
+            <div className="flex gap-2">
 
-        <div className="bg-white rounded-xl shadow divide-y">
-          {items.map((item,index)=>(
-            <div
-              key={item}
-              className={`px-5 py-3 ${
-                index===0
-                ?"bg-blue-600 text-white"
-                :"hover:bg-gray-50"
-              }`}>
-              {item}
-            </div>
-          ))}
-        </div>
+              <button
+                onClick={()=>setPage(Math.max(1,page-1))}
+                className="px-3 py-2 bg-white rounded border">
+                Prev
+              </button>
 
-      </Section>
-    )
-  }
-
-  /* ---------------- Pagination ---------------- */
-
-  function Pagination(){
-
-    const [page,setPage]=useState(1);
-
-    return(
-      <Section title="Pagination">
-
-        <div className="flex gap-2">
-
-          <button
-            onClick={()=>setPage(Math.max(1,page-1))}
-            className="px-3 py-2 bg-white rounded border">
-            Prev
-          </button>
-
-          {[1,2,3].map(p=>(
-            <button
-              key={p}
-              onClick={()=>setPage(p)}
-              className={`px-4 py-2 rounded ${
-                page===p
-                ?"bg-blue-600 text-white"
-                :"bg-white border"
-              }`}>
-              {p}
-            </button>
-          ))}
-
-          <button
-            onClick={()=>setPage(Math.min(3,page+1))}
-            className="px-3 py-2 bg-white rounded border">
-            Next
-          </button>
-
-        </div>
-
-      </Section>
-    )
-  }
-
-  /* ---------------- Spinner ---------------- */
-
-  function Spinner(){
-    return(
-      <Section title="Spinner">
-
-        <div className="flex gap-8 items-center">
-
-          <div className="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-
-          <div className="w-6 h-6 bg-green-500 rounded-full animate-pulse"></div>
-
-        </div>
-
-      </Section>
-    )
-  }
-
-  /* ---------------- Carousel ---------------- */
-
-  function Carousel(){
-
-    const slides=[
-      "from-blue-500 to-indigo-600",
-      "from-green-500 to-emerald-600",
-      "from-purple-500 to-pink-600"
-    ];
-
-    const [index,setIndex]=useState(0);
-
-    const next=()=>setIndex((index+1)%slides.length);
-    const prev=()=>setIndex((index-1+slides.length)%slides.length);
-
-    return(
-      <Section title="Carousel">
-
-        <div className={`h-64 rounded-xl bg-gradient-to-r ${slides[index]} flex items-center justify-center text-white text-5xl font-bold relative`}>
-
-          {index+1}
-
-          <button
-            onClick={prev}
-            className="absolute left-4 bg-white/20 px-3 py-2 rounded">
-            ‹
-          </button>
-
-          <button
-            onClick={next}
-            className="absolute right-4 bg-white/20 px-3 py-2 rounded">
-            ›
-          </button>
-
-        </div>
-
-      </Section>
-    )
-  }
-
-  /* ---------------- Modal ---------------- */
-
-  function Modal(){
-
-    const [show,setShow]=useState(false);
-
-    return(
-      <Section title="Modal">
-
-        <button
-          onClick={()=>setShow(true)}
-          className="bg-blue-600 text-white px-5 py-2 rounded-lg">
-          Open Modal
-        </button>
-
-        {show &&
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-
-            <div className="bg-white rounded-xl w-96 p-6">
-
-              <h3 className="text-xl font-bold mb-3">React Modal</h3>
-
-              <p className="text-gray-600 mb-6">
-                This modal is completely controlled using React state.
-              </p>
-
-              <div className="flex justify-end">
+              {[1,2,3].map(p=>(
                 <button
-                  onClick={()=>setShow(false)}
-                  className="bg-gray-800 text-white px-4 py-2 rounded">
-                  Close
+                  key={p}
+                  onClick={()=>setPage(p)}
+                  className={`px-4 py-2 rounded ${
+                    page===p
+                    ?"bg-blue-600 text-white"
+                    :"bg-white border"
+                  }`}>
+                  {p}
                 </button>
-              </div>
+              ))}
+
+              <button
+                onClick={()=>setPage(Math.min(3,page+1))}
+                className="px-3 py-2 bg-white rounded border">
+                Next
+              </button>
 
             </div>
 
+          </Section>
+        )
+      }
+
+      /* ---------------- Spinner ---------------- */
+
+      function Spinner(){
+        return(
+          <Section title="Spinner">
+
+            <div className="flex gap-8 items-center">
+
+              <div className="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+
+              <div className="w-6 h-6 bg-green-500 rounded-full animate-pulse"></div>
+
+            </div>
+
+          </Section>
+        )
+      }
+
+      /* ---------------- Carousel ---------------- */
+
+      function Carousel(){
+
+        const slides=[
+          "from-blue-500 to-indigo-600",
+          "from-green-500 to-emerald-600",
+          "from-purple-500 to-pink-600"
+        ];
+
+        const [index,setIndex]=useState(0);
+
+        const next=()=>setIndex((index+1)%slides.length);
+        const prev=()=>setIndex((index-1+slides.length)%slides.length);
+
+        return(
+          <Section title="Carousel">
+
+            <div className={`h-64 rounded-xl bg-gradient-to-r ${slides[index]} flex items-center justify-center text-white text-5xl font-bold relative`}>
+
+              {index+1}
+
+              <button
+                onClick={prev}
+                className="absolute left-4 bg-white/20 px-3 py-2 rounded">
+                ‹
+              </button>
+
+              <button
+                onClick={next}
+                className="absolute right-4 bg-white/20 px-3 py-2 rounded">
+                ›
+              </button>
+
+            </div>
+
+          </Section>
+        )
+      }
+
+      /* ---------------- Modal ---------------- */
+
+      function Modal(){
+
+        const [show,setShow]=useState(false);
+
+        return(
+          <Section title="Modal">
+
+            <button
+              onClick={()=>setShow(true)}
+              className="bg-blue-600 text-white px-5 py-2 rounded-lg">
+              Open Modal
+            </button>
+
+            {show &&
+              <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+
+                <div className="bg-white rounded-xl w-96 p-6">
+
+                  <h3 className="text-xl font-bold mb-3">React Modal</h3>
+
+                  <p className="text-gray-600 mb-6">
+                    This modal is completely controlled using React state.
+                  </p>
+
+                  <div className="flex justify-end">
+                    <button
+                      onClick={()=>setShow(false)}
+                      className="bg-gray-800 text-white px-4 py-2 rounded">
+                      Close
+                    </button>
+                  </div>
+
+                </div>
+
+              </div>
+            }
+
+          </Section>
+        )
+      }
+
+      /* ---------------- Toast ---------------- */
+
+      function Toast(){
+
+        const [visible,setVisible]=useState(true);
+
+        useEffect(()=>{
+          const timer=setTimeout(()=>setVisible(false),3000);
+          return()=>clearTimeout(timer);
+        },[]);
+
+        if(!visible) return null;
+
+        return(
+          <div className="fixed bottom-5 right-5 bg-slate-900 text-white px-5 py-3 rounded-lg shadow-lg">
+            Bootstrap replaced with Tailwind Toast
           </div>
-        }
+        )
+      }
 
-      </Section>
-    )
-  }
+      /* ---------------- Footer ---------------- */
 
-  /* ---------------- Toast ---------------- */
+      function Footer(){
+        return(
+          <footer className="bg-slate-900 text-white mt-16">
+            <div className="max-w-7xl mx-auto px-6 py-8 text-center">
+              © 2026 React Tailwind Component Library
+            </div>
+          </footer>
+        )
+      }
 
-  function Toast(){
+      /* ---------------- Layout Wrapper ---------------- */
 
-    const [visible,setVisible]=useState(true);
+      function Section({title,children,id}){
+        return(
+          <section id={id} className="max-w-7xl mx-auto px-6 mt-12">
+            <h2 className="text-3xl font-bold mb-6">{title}</h2>
+            {children}
+          </section>
+        )
+      }
 
-    useEffect(()=>{
-      const timer=setTimeout(()=>setVisible(false),3000);
-      return()=>clearTimeout(timer);
-    },[]);
+      /* ---------------- App ---------------- */
 
-    if(!visible) return null;
+      function App(){
+        return(
+          <>
+            <Navbar/>
+            <Hero/>
+            <Alerts/>
+            <Buttons/>
+            <Badges/>
+            <Cards/>
+            <Accordion/>
+            <Tabs/>
+            <Progress/>
+            <TableComponent/>
+            <Forms/>
+            <Dropdown/>
+            <ListGroup/>
+            <Pagination/>
+            <Spinner/>
+            <Carousel/>
+            <Modal/>
+            <Footer/>
+            <Toast/>
+          </>
+        )
+      }
 
-    return(
-      <div className="fixed bottom-5 right-5 bg-slate-900 text-white px-5 py-3 rounded-lg shadow-lg">
-        Bootstrap replaced with Tailwind Toast
-      </div>
-    )
-  }
+      ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
 
-  /* ---------------- Footer ---------------- */
-
-  function Footer(){
-    return(
-      <footer className="bg-slate-900 text-white mt-16">
-        <div className="max-w-7xl mx-auto px-6 py-8 text-center">
-          © 2026 React Tailwind Component Library
-        </div>
-      </footer>
-    )
-  }
-
-  /* ---------------- Layout Wrapper ---------------- */
-
-  function Section({title,children,id}){
-    return(
-      <section id={id} className="max-w-7xl mx-auto px-6 mt-12">
-        <h2 className="text-3xl font-bold mb-6">{title}</h2>
-        {children}
-      </section>
-    )
-  }
-
-  /* ---------------- App ---------------- */
-
-  function App(){
-    return(
-      <>
-        <Navbar/>
-        <Hero/>
-        <Alerts/>
-        <Buttons/>
-        <Badges/>
-        <Cards/>
-        <Accordion/>
-        <Tabs/>
-        <Progress/>
-        <TableComponent/>
-        <Forms/>
-        <Dropdown/>
-        <ListGroup/>
-        <Pagination/>
-        <Spinner/>
-        <Carousel/>
-        <Modal/>
-        <Footer/>
-        <Toast/>
-      </>
-    )
-  }
-
-  ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
-
-  </script>
-
+    </script>
   </body>
 </html>
