@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>useParams Demo</title>
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <!-- React + ReactDOM (pinned) -->
+    <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+    <!-- React Router (v6, UMD build — pinned, unversioned @6 tag no longer reliably exposes window.ReactRouterDOM) -->
+    <script crossorigin src="https://unpkg.com/react-router-dom@6.23.1/dist/umd/react-router-dom.development.js"></script>
+    <!-- Babel standalone so we can write JSX directly in the page (pinned) -->
+    <script src="https://unpkg.com/@babel/standalone@7.24.7/babel.min.js"></script>
+
+    <script type="text/babel">
+      if (typeof ReactRouterDOM === "undefined") {
+        document.getElementById("root").innerHTML =
+          "<p>react-router-dom failed to load from the CDN — check your network/ad-blocker and reload.</p>";
+        throw new Error("ReactRouterDOM global not found");
+      }
+
+      const { useParams, HashRouter, Routes, Route, Link } = ReactRouterDOM;
+
+      function UserProfile() {
+        // This is the actual hook usage — no manual pathname.split() needed.
+        const { userId } = useParams();
+
+        return (
+          <div>
+            <h2>User ID: {userId}</h2>
+            <p>This profile belongs to user {userId}.</p>
+            <Link to="/users/202">Go to user 202</Link>
+          </div>
+        );
+      }
+
+      function Home() {
+        return (
+          <div>
+            <h1>useParams Demo</h1>
+            <p>Try these links (or edit the URL hash directly):</p>
+            <ul>
+              <li><Link to="/users/101">/users/101</Link></li>
+              <li><Link to="/users/202">/users/202</Link></li>
+            </ul>
+          </div>
+        );
+      }
+
+      function App() {
+        return (
+          <HashRouter>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/users/:userId" element={<UserProfile />} />
+            </Routes>
+          </HashRouter>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<App />);
+    </script>
+  </body>
+</html>
