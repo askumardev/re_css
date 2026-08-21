@@ -3,68 +3,396 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>useParams Demo</title>
+
+    <title>React useParams Demo</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 40px;
+        background: #f5f5f5;
+      }
+
+      .card {
+        max-width: 500px;
+        padding: 25px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      a {
+        display: block;
+        margin: 10px 0;
+        color: #0066cc;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      code {
+        background: #eee;
+        padding: 3px 6px;
+        border-radius: 4px;
+      }
+    </style>
   </head>
 
   <body>
+
+    <!--
+      React will render the application inside this element.
+    -->
     <div id="root"></div>
 
-    <!-- React + ReactDOM (pinned) -->
-    <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
-    <!-- React Router (v6, UMD build — pinned, unversioned @6 tag no longer reliably exposes window.ReactRouterDOM) -->
-    <script crossorigin src="https://unpkg.com/react-router-dom@6.23.1/dist/umd/react-router-dom.development.js"></script>
-    <!-- Babel standalone so we can write JSX directly in the page (pinned) -->
-    <script src="https://unpkg.com/@babel/standalone@7.24.7/babel.min.js"></script>
 
-    <script type="text/babel">
-      if (typeof ReactRouterDOM === "undefined") {
-        document.getElementById("root").innerHTML =
-          "<p>react-router-dom failed to load from the CDN — check your network/ad-blocker and reload.</p>";
-        throw new Error("ReactRouterDOM global not found");
-      }
+    <!--
+      IMPORTANT:
 
-      const { useParams, HashRouter, Routes, Route, Link } = ReactRouterDOM;
+      We are using ES Modules.
 
-      function UserProfile() {
-        // This is the actual hook usage — no manual pathname.split() needed.
-        const { userId } = useParams();
+      There is NO Babel.
+      There is NO JSX.
 
-        return (
-          <div>
-            <h2>User ID: {userId}</h2>
-            <p>This profile belongs to user {userId}.</p>
-            <Link to="/users/202">Go to user 202</Link>
-          </div>
-        );
-      }
+      Therefore, the browser can execute this directly.
+    -->
+    <script type="module">
+
+      /*
+      * -------------------------------------------------------
+      * Import React
+      * -------------------------------------------------------
+      *
+      * React is pinned to version 18.3.1.
+      *
+      * This exact same React version will be used by:
+      *
+      *   React
+      *   ReactDOM
+      *   React Router
+      *
+      * This prevents the "useRef" dispatcher error.
+      */
+
+      import React from
+        "https://esm.sh/react@18.3.1";
+
+
+      /*
+      * -------------------------------------------------------
+      * Import ReactDOM
+      * -------------------------------------------------------
+      */
+
+      import {
+        createRoot
+      } from
+        "https://esm.sh/react-dom@18.3.1/client";
+
+
+      /*
+      * -------------------------------------------------------
+      * Import React Router
+      * -------------------------------------------------------
+      *
+      * ?deps=react@18.3.1
+      *
+      * forces React Router to use the same React version.
+      */
+
+      import {
+        HashRouter,
+        Routes,
+        Route,
+        Link,
+        useParams
+      } from
+        "https://esm.sh/react-router-dom@6.30.1?deps=react@18.3.1";
+
+
+      /*
+      * -------------------------------------------------------
+      * Import HTM
+      * -------------------------------------------------------
+      *
+      * HTM allows us to write React elements without JSX.
+      *
+      * Normal JSX:
+      *
+      *   <div>Hello</div>
+      *
+      * With HTM:
+      *
+      *   html`<div>Hello</div>`
+      *
+      * Therefore Babel is not required.
+      */
+
+      import htm from
+        "https://esm.sh/htm@3.1.1";
+
+
+      /*
+      * Connect HTM with React.createElement.
+      *
+      * After this:
+      *
+      *   html`<div>Hello</div>`
+      *
+      * internally becomes something equivalent to:
+      *
+      *   React.createElement("div", ...)
+      */
+
+      const html = htm.bind(React.createElement);
+
+
+      /*
+      * =======================================================
+      * HOME COMPONENT
+      * =======================================================
+      *
+      * This is our starting page.
+      */
 
       function Home() {
-        return (
-          <div>
-            <h1>useParams Demo</h1>
-            <p>Try these links (or edit the URL hash directly):</p>
-            <ul>
-              <li><Link to="/users/101">/users/101</Link></li>
-              <li><Link to="/users/202">/users/202</Link></li>
-            </ul>
+
+        return html`
+
+          <div class="card">
+
+            <h1>React useParams Demo</h1>
+
+            <p>
+              Select a user:
+            </p>
+
+
+            <!--
+              React Router Link.
+
+              Clicking this changes the URL to:
+
+                #/users/101
+
+              WITHOUT refreshing the page.
+            -->
+
+            <${Link} to="/users/101">
+              User 101
+            <//>
+
+
+            <${Link} to="/users/202">
+              User 202
+            <//>
+
+
+            <${Link} to="/users/303">
+              User 303
+            <//>
+
           </div>
-        );
+
+        `;
       }
+
+
+      /*
+      * =======================================================
+      * USER PROFILE COMPONENT
+      * =======================================================
+      *
+      * This component handles:
+      *
+      *     /users/:userId
+      *
+      * ":userId" is a dynamic route parameter.
+      */
+
+      function UserProfile() {
+
+
+        /*
+        * -----------------------------------------------------
+        * useParams()
+        * -----------------------------------------------------
+        *
+        * Suppose the browser URL is:
+        *
+        *     #/users/202
+        *
+        * The route contains:
+        *
+        *     /users/:userId
+        *
+        * React Router extracts:
+        *
+        *     userId = "202"
+        *
+        * So:
+        *
+        *     useParams()
+        *
+        * returns:
+        *
+        *     {
+        *       userId: "202"
+        *     }
+        */
+
+        const {
+          userId
+        } = useParams();
+
+
+        /*
+        * Render the extracted value.
+        */
+
+        return html`
+
+          <div class="card">
+
+            <h2>User Profile</h2>
+
+            <h3>
+              User ID: ${userId}
+            </h3>
+
+
+            <p>
+              The user ID was extracted from the URL
+              using <code>useParams()</code>.
+            </p>
+
+
+            <p>
+              Current route:
+              <strong>
+                /users/${userId}
+              </strong>
+            </p>
+
+
+            <!--
+              Navigate back to Home.
+            -->
+
+            <${Link} to="/">
+              Back to Home
+            <//>
+
+          </div>
+
+        `;
+      }
+
+
+      /*
+      * =======================================================
+      * APP COMPONENT
+      * =======================================================
+      *
+      * This is where we define our application's routes.
+      */
 
       function App() {
-        return (
-          <HashRouter>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/users/:userId" element={<UserProfile />} />
-            </Routes>
-          </HashRouter>
-        );
+
+        return html`
+
+          <!--
+            HashRouter
+
+            It manages URLs using the hash portion.
+            
+            Example:
+
+              index.html#/users/202
+
+            This is useful for a standalone HTML file because
+            we don't need server-side routing configuration.
+          -->
+
+          <${HashRouter}>
+
+
+            <!--
+              Routes contains all application routes.
+            -->
+
+            <${Routes}>
+
+
+              <!--
+                HOME ROUTE
+
+                URL:
+
+                  #
+
+                Component:
+
+                  Home
+              -->
+
+              <${Route}
+                path="/"
+                element=${html`<${Home} />`}
+              />
+
+
+              <!--
+                USER ROUTE
+
+                URL:
+
+                  #/users/101
+                  #/users/202
+                  #/users/303
+
+                ":userId" is dynamic.
+              -->
+
+              <${Route}
+                path="/users/:userId"
+                element=${html`<${UserProfile} />`}
+              />
+
+
+            <//>
+
+          <//>
+
+        `;
       }
 
-      const root = ReactDOM.createRoot(document.getElementById("root"));
-      root.render(<App />);
+
+      /*
+      * =======================================================
+      * START REACT APPLICATION
+      * =======================================================
+      *
+      * Find:
+      *
+      *     <div id="root"></div>
+      *
+      * and render <App /> inside it.
+      */
+
+      const root =
+        createRoot(
+          document.getElementById("root")
+        );
+
+
+      root.render(
+        html`<${App} />`
+      );
+
     </script>
+
   </body>
 </html>
