@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <title>React Higher Order Component</title>
+
+    <!-- Bootstrap for styling -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- React Libraries -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Babel allows JSX directly inside HTML -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+
+  <body class="bg-light">
+
+    <!-- React mounts the application here -->
+    <div id="root" class="container py-5"></div>
+
+    <script type="text/babel">
+
+      // Extract createRoot from ReactDOM
+      const { createRoot } = ReactDOM;
+
+      /**************************************************************
+       * STEP 1 - Create a Normal React Component
+       *
+       * This component knows ONLY how to display user data.
+       * It has no border, title, logging, authentication, etc.
+       **************************************************************/
+      function UserCard({ name, role }) {
+        return (
+          <div>
+            <h4>{name}</h4>
+            <p className="text-muted mb-0">{role}</p>
+          </div>
+        );
+      }
+
+
+      /**************************************************************
+       * STEP 2 - Create a Higher Order Component (HOC)
+       *
+       * A HOC is simply a FUNCTION.
+       *
+       * Input  : A React Component
+       * Output : A NEW React Component
+       *
+       * It adds extra functionality without modifying UserCard.
+       **************************************************************/
+      function withBorder(WrappedComponent) {
+
+        // Return a brand new component
+        return function EnhancedComponent(props) {
+
+          // props contains everything passed to EnhancedUserCard
+          // Example:
+          // {
+          //   name: "Satish Kumar",
+          //   role: "Senior Ruby on Rails Developer"
+          // }
+
+          return (
+            <div className="card shadow border-primary border-2 p-3">
+
+              {/* New UI added by the HOC */}
+              <h5 className="text-primary">
+                Employee Information
+              </h5>
+
+              <hr/>
+
+              {/* Render the original component */}
+              {/* Forward ALL props using ...props */}
+              <WrappedComponent {...props} />
+
+              <hr/>
+
+              {/* Footer added only by HOC */}
+              <small className="text-secondary">
+                Rendered through Higher Order Component
+              </small>
+
+            </div>
+          );
+        };
+      }
+
+
+      /**************************************************************
+       * STEP 3 - Wrap the Original Component
+       *
+       * UserCard -------->
+       *                  withBorder()
+       *                       |
+       *                       V
+       *           EnhancedUserCard
+       **************************************************************/
+      const EnhancedUserCard = withBorder(UserCard);
+
+
+
+      /**************************************************************
+       * STEP 4 - Parent Component
+       **************************************************************/
+      function App() {
+        return (
+          <div>
+
+            <h2 className="mb-4">
+              React Higher Order Component
+            </h2>
+
+            {/* We use the enhanced component instead of UserCard */}
+
+            <EnhancedUserCard
+              name="Satish Kumar"
+              role="Senior Ruby on Rails Developer"
+            />
+
+          </div>
+        );
+      }
+
+
+      /**************************************************************
+       * STEP 5 - Render the React Application
+       **************************************************************/
+      const root = createRoot(document.getElementById("root"));
+      root.render(<App />);
+
+    </script>
+
+  </body>
+</html>
