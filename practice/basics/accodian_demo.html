@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>React Accordion</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      body {
+        background: #f4f6f9;
+        padding: 40px;
+      }
+
+      .container {
+        max-width: 700px;
+        margin: auto;
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 24px;
+      }
+
+      .accordion {
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      }
+
+      .item {
+        border-bottom: 1px solid #e5e5e5;
+      }
+
+      .item:last-child {
+        border-bottom: none;
+      }
+
+      .header {
+        width: 100%;
+        border: none;
+        background: white;
+        padding: 18px 20px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 17px;
+        font-weight: 600;
+      }
+
+      .header:hover {
+        background: #f8f9fa;
+      }
+
+      .header.active {
+        background: #2563eb;
+        color: white;
+      }
+
+      .icon {
+        font-size: 22px;
+        transition: transform .25s;
+      }
+
+      .icon.rotate {
+        transform: rotate(45deg);
+      }
+
+      .content {
+        padding: 18px 20px;
+        background: #fafafa;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const { useState } = React;
+
+      const data = [
+        {
+          id: 1,
+          title: "Ruby on Rails",
+          content:
+            "Ruby on Rails is a convention-over-configuration framework used for building scalable web applications and REST APIs."
+        },
+        {
+          id: 2,
+          title: "React Components",
+          content:
+            "React components allow you to build reusable UI. State and props make components predictable and easy to maintain."
+        },
+        {
+          id: 3,
+          title: "PostgreSQL",
+          content:
+            "PostgreSQL is an advanced relational database that supports indexing, JSONB, transactions, and excellent performance."
+        },
+        {
+          id: 4,
+          title: "Sidekiq & Redis",
+          content:
+            "Sidekiq processes background jobs asynchronously using Redis, improving application responsiveness and throughput."
+        }
+      ];
+
+      function AccordionItem({ item, activeId, setActiveId }) {
+        const isOpen = activeId === item.id;
+
+        const toggleAccordion = () => {
+          setActiveId(isOpen ? null : item.id);
+        };
+
+        return (
+          <div className="item">
+            <button
+              className={`header ${isOpen ? "active" : ""}`}
+              onClick={toggleAccordion}
+            >
+              {item.title}
+              <span className={`icon ${isOpen ? "rotate" : ""}`}>+</span>
+            </button>
+
+            {isOpen && (
+              <div className="content">
+                {item.content}
+              </div>
+            )}
+          </div>
+        );
+      }
+
+      function Accordion() {
+        const [activeId, setActiveId] = useState(1);
+
+        return (
+          <div className="container">
+            <h2>React Single Active Accordion</h2>
+
+            <div className="accordion">
+              {data.map(item => (
+                <AccordionItem
+                  key={item.id}
+                  item={item}
+                  activeId={activeId}
+                  setActiveId={setActiveId}
+                />
+              ))}
+            </div>
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<Accordion />);
+    </script>
+
+  </body>
+</html>
