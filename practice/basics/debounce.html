@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React Debounce Search</title>
+
+    <!-- Load React library -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+
+    <!-- Load ReactDOM library -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Load Babel so JSX works in browser -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Simple styling -->
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 40px;
+        background: #f4f4f4;
+      }
+
+      .container {
+        width: 400px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        margin-top: 10px;
+        box-sizing: border-box;
+      }
+
+      .result {
+        margin-top: 20px;
+        color: green;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- React renders inside this div -->
+    <div id="root"></div>
+
+    <!-- React JSX starts -->
+    <script type="text/babel">
+
+      // Extract useState and useEffect hooks from React
+      const { useState, useEffect } = React;
+
+      // Create the main component
+      function SearchBox() {
+
+        // Store the value typed by the user
+        const [text, setText] = useState("");
+
+        // Store the debounced search value
+        const [searchResult, setSearchResult] = useState("");
+
+        // Run this effect whenever text changes
+        useEffect(() => {
+
+          // Create a timer that waits for 5ms
+          const timer = setTimeout(() => {
+
+            // Simulate search operation
+            console.log("Searching for:", text);
+
+            // Update the search result
+            setSearchResult(text);
+
+          }, 500);
+
+          // Cleanup function cancels previous timer
+          return () => clearTimeout(timer);
+
+        }, [text]);
+
+        // Render the UI
+        return (
+          <div className="container">
+
+            <h2>Debounced Search</h2>
+
+            <p>Search starts 5ms after typing stops.</p>
+
+            <input
+              type="text"
+              placeholder="Type something..."
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+            />
+
+            <div className="result">
+              Search Result: {searchResult}
+            </div>
+
+          </div>
+        );
+      }
+
+      // Create React root
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+
+      // Render the component
+      root.render(<SearchBox />);
+
+    </script>
+  </body>
+</html>
