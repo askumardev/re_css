@@ -5,6 +5,8 @@ import "./demo.css";
 import { CORE_CONCEPTS } from "./data.js";
 import Header from "./components/Header.js";
 import CoreConcept from "./components/CoreConcept.js";
+import EmptyCache from "./components/EmptyCache.js";
+
 
 function App() {
   const [selectedConcept, setSelectedConcept] = useState(0);
@@ -12,6 +14,7 @@ function App() {
 
   return (
     <div>
+      {/* <EmptyCache /> */}
       <Header />
 
       <main>
