@@ -14,6 +14,7 @@ Useful scripts:
 
 - `npm start` — Run the CRA development server (default PORT=4000 in this repo).
 - `npm run foodex` — Serve the `foodex` sample with Parcel on port 5000.
+- `npm run nflix`
 - `npm run bistro` — Serve the new `bistro` sample with Parcel on port 5001.
 - `npm run build` — Build the React app for production.
 - `npm run build:foodex` — Build the `foodex` sample with Parcel.
