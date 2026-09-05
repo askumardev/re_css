@@ -31,7 +31,6 @@ function App() {
             ))}
           </ul>
           <article className="concept-description" aria-live="polite">
-            <h3>{concept.title}</h3>
             <p>{concept.description}</p>
           </article>
         </section>
