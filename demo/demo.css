@@ -4,3 +4,52 @@ body {
   min-height: 100vh;
   background: linear-gradient(180deg, #f8fafc 0%, #e2efff 100%);
 }
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.concept-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.concept-navigation button {
+  border: 1px solid #b6c8dc;
+  border-radius: 0.4rem;
+  background: #ffffff;
+  color: #24415f;
+  cursor: pointer;
+  font: inherit;
+  padding: 0.65rem 1rem;
+}
+
+.concept-navigation button:hover,
+.concept-navigation .active button {
+  background: #24415f;
+  border-color: #24415f;
+  color: #ffffff;
+}
+
+.concept-description {
+  background: #ffffff;
+  border-left: 4px solid #24415f;
+  margin-top: 1rem;
+  padding: 1rem 1.25rem;
+}
+
+.concept-description h3,
+.concept-description p {
+  margin: 0;
+}
+
+.concept-description p {
+  line-height: 1.6;
+  margin-top: 0.5rem;
+}

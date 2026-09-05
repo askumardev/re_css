@@ -1,17 +1,9 @@
-// function CoreConcept(props) {
-//   return (
-//     <li>
-//       <h3>{props.title}</h3>
-//       <p>{props.description}</p>
-//     </li>
-//   );
-// }
-
-export default function CoreConcept({ title, description }) {
+export default function CoreConcept({ title, isActive, onSelect }) {
   return (
-    <li>
-      <h3>{title}</h3>
-      <p>{description}</p>
+    <li className={isActive ? "active" : ""}>
+      <button type="button" onClick={onSelect} aria-current={isActive ? "page" : undefined}>
+        {title}
+      </button>
     </li>
   );
 }
