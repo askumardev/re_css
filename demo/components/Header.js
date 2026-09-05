@@ -1,4 +1,4 @@
-
+import "../header.css";
 //import img from "./images/atom.png";
 function genRandomInt(max) {
   return Math.floor(Math.random() * (max + 1));
@@ -13,7 +13,7 @@ function Header() {
   return (
     <div>
       <header>
-        <h1>React Essentials</h1>
+        <h1 className="header-title">React Essentials</h1>
         {/* <img src={img} alt="React Atom Logo" /> */}
         <p>
           {desc} React concepts you will need for almost any app you are
