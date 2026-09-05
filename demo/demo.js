@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./demo.css";
 import img from "./images/atom.png";
+import { CORE_CONCEPTS } from "./data.js";
 
 function genRandomInt(max) {
   return Math.floor(Math.random() * (max + 1));
@@ -27,11 +28,20 @@ function Header() {
   );
 }
 
-function CoreConcept(props) {
+// function CoreConcept(props) {
+//   return (
+//     <li>
+//       <h3>{props.title}</h3>
+//       <p>{props.description}</p>
+//     </li>
+//   );
+// }
+
+function CoreConcept({ title, description }) {
   return (
     <li>
-      <h3>{props.title}</h3>
-      <p>{props.description}</p>
+      <h3>{title}</h3>
+      <p>{description}</p>
     </li>
   );
 }
@@ -45,9 +55,9 @@ function App() {
         <section>
           <h2>Core Concepts</h2>
           <ul>
-            <CoreConcept title="Component" description="Components are the building blocks of any React application." />
-            <CoreConcept title="Props" description="Props (short for properties) are how components talk to each other." />
-            <CoreConcept title="State" description="State is a way to manage data that changes over time in a React component." />
+            <CoreConcept {...CORE_CONCEPTS[0]} />
+            <CoreConcept {...CORE_CONCEPTS[1]} />
+            <CoreConcept title={CORE_CONCEPTS[2].title} description={CORE_CONCEPTS[2].description} />
           </ul>
         </section>
         <h2>Time to get started!</h2>
