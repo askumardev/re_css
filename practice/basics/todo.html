@@ -2,7 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Hello React!</title>
+    <title>Todo List</title>
+    <style>
+      body { font-family: system-ui, sans-serif; max-width: 420px; margin: 40px auto; }
+      .todo-input { display: flex; gap: 8px; margin-bottom: 16px; }
+      .todo-input input { flex: 1; padding: 8px; font-size: 14px; }
+      .todo-input button { padding: 8px 14px; cursor: pointer; }
+      ul { list-style: none; padding: 0; }
+      li { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid #eee; }
+      li span { flex: 1; cursor: pointer; }
+      .done { text-decoration: line-through; color: #999; }
+      li button { background: none; border: none; color: #c00; cursor: pointer; font-size: 14px; }
+    </style>
   </head>
   <body>
     <div id="root"></div>
@@ -12,24 +23,77 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <script type="text/babel">
+      const { useState } = React;
+
       const DUMMY_TODOS = [
-        'Learn React',
-        'Practice React',
-        'Profit!'
+        { id: 1, text: 'Learn React', done: false },
+        { id: 2, text: 'Practice React', done: false },
+        { id: 3, text: 'Profit!', done: false },
       ];
 
       function Todo(props) {
-        return <li>{props.text}</li>;
+        return (
+          <li>
+            <span
+              className={props.done ? 'done' : ''}
+              onClick={() => props.onToggle(props.id)}
+            >
+              {props.text}
+            </span>
+            <button onClick={() => props.onDelete(props.id)}>✕</button>
+          </li>
+        );
       }
 
       function App() {
+        const [todos, setTodos] = useState(DUMMY_TODOS);
+        const [input, setInput] = useState('');
+
+        function addTodo() {
+          const text = input.trim();
+          if (!text) return;
+          setTodos([...todos, { id: Date.now(), text, done: false }]);
+          setInput('');
+        }
+
+        function toggleTodo(id) {
+          setTodos(todos.map(t => t.id === id ? { ...t, done: !t.done } : t));
+        }
+
+        function deleteTodo(id) {
+          setTodos(todos.filter(t => t.id !== id));
+        }
+
+        function handleKeyDown(e) {
+          if (e.key === 'Enter') addTodo();
+        }
+
         return (
-          <ul>
-            {DUMMY_TODOS.map((todoText, index) => {
-              console.log(index + "->" + todoText);
-              return <Todo key={index} text={todoText} />;
-            })}
-          </ul>
+          <div>
+            <h2>Todo List</h2>
+            <div className="todo-input">
+              <input
+                type="text"
+                value={input}
+                placeholder="Add a task..."
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+              />
+              <button onClick={addTodo}>Add</button>
+            </div>
+            <ul>
+              {todos.map((todo) => (
+                <Todo
+                  key={todo.id}
+                  id={todo.id}
+                  text={todo.text}
+                  done={todo.done}
+                  onToggle={toggleTodo}
+                  onDelete={deleteTodo}
+                />
+              ))}
+            </ul>
+          </div>
         );
       }
 
@@ -38,5 +102,6 @@
     </script>
   </body>
 </html>
+
 
 <!-- http://localhost:5500/practice/basics/todo.html -->
