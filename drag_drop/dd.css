@@ -1,0 +1,279 @@
+:root {
+	color-scheme: light;
+	font-family: 'Avenir Next', Avenir, 'Segoe UI', sans-serif;
+	color: #202b32;
+	background: #f3f6f3;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	min-width: 320px;
+	min-height: 100vh;
+	margin: 0;
+	background-color: #f3f6f3;
+	background-image: radial-gradient(#cbd7d1 0.7px, transparent 0.7px);
+	background-size: 17px 17px;
+}
+
+.app-shell {
+	width: min(1080px, calc(100% - 48px));
+	margin: 0 auto;
+	padding: 58px 0 64px;
+}
+
+.page-header {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: 24px;
+	padding-bottom: 30px;
+	border-bottom: 1px solid #d5ded8;
+}
+
+.eyebrow {
+	margin: 0 0 10px;
+	color: #507c6a;
+	font-size: 11px;
+	font-weight: 800;
+}
+
+h1,
+h2,
+h3,
+p {
+	margin-top: 0;
+}
+
+h1 {
+	margin-bottom: 6px;
+	font-family: Georgia, 'Times New Roman', serif;
+	font-size: 42px;
+	font-weight: 500;
+}
+
+.page-intro {
+	margin-bottom: 0;
+	color: #65736d;
+	font-size: 14px;
+}
+
+.connection-status {
+	display: flex;
+	align-items: center;
+	gap: 9px;
+	padding-bottom: 4px;
+	color: #596961;
+	font-size: 12px;
+}
+
+.status-dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: #8b9b91;
+}
+
+.connection-status[data-state='pending'] .status-dot {
+	background: #d29a3e;
+	animation: pulse 0.8s infinite alternate;
+}
+
+.connection-status[data-state='success'] .status-dot {
+	background: #3d9670;
+}
+
+.connection-status[data-state='error'] .status-dot {
+	background: #c45245;
+}
+
+.board {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 18px;
+	padding-top: 26px;
+}
+
+.column {
+	min-width: 0;
+}
+
+.column-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 2px 12px;
+}
+
+.column-header h2,
+.activity-heading h2 {
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.task-count {
+	display: grid;
+	width: 24px;
+	height: 24px;
+	place-items: center;
+	border-radius: 50%;
+	background: #e3eae5;
+	color: #52665a;
+	font-size: 11px;
+	font-weight: 700;
+}
+
+.drop-zone {
+	display: flex;
+	min-height: 275px;
+	flex-direction: column;
+	gap: 10px;
+	padding: 10px;
+	border: 1px dashed #c8d2cc;
+	border-radius: 5px;
+	background: rgb(255 255 255 / 45%);
+	transition: border-color 140ms ease, background-color 140ms ease;
+}
+
+.drop-zone.is-over {
+	border-color: #548a72;
+	background: #e8f1eb;
+}
+
+.task-card {
+	position: relative;
+	min-height: 120px;
+	padding: 17px 16px 14px 20px;
+	border: 1px solid #e0e6e1;
+	border-radius: 4px;
+	background: #fff;
+	box-shadow: 0 2px 5px rgb(38 59 47 / 5%);
+	cursor: grab;
+	transition: opacity 140ms ease, transform 140ms ease, box-shadow 140ms ease;
+}
+
+.task-card:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 5px 12px rgb(38 59 47 / 9%);
+}
+
+.task-card.is-dragging {
+	opacity: 0.4;
+	cursor: grabbing;
+}
+
+.task-grip {
+	position: absolute;
+	top: 14px;
+	left: 6px;
+	color: #9aa69f;
+	font-size: 17px;
+}
+
+.task-card h3 {
+	margin-bottom: 8px;
+	font-size: 13px;
+	line-height: 1.4;
+}
+
+.task-card p {
+	margin-bottom: 12px;
+	color: #7c8981;
+	font-size: 11px;
+}
+
+.task-state {
+	color: #54816b;
+	font-size: 10px;
+	font-weight: 700;
+}
+
+.activity {
+	margin-top: 36px;
+	padding-top: 18px;
+	border-top: 1px solid #d5ded8;
+}
+
+.activity-heading {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	margin-bottom: 8px;
+}
+
+.activity-heading > span {
+	color: #89958e;
+	font-family: monospace;
+	font-size: 11px;
+}
+
+#activity-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.empty-activity,
+.activity-entry {
+	padding: 12px 0;
+	border-bottom: 1px solid #e1e7e2;
+	color: #78857d;
+	font-size: 12px;
+}
+
+.activity-entry {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	color: #3c4d43;
+}
+
+.activity-result {
+	flex: none;
+	font-size: 10px;
+	font-weight: 700;
+}
+
+.activity-result.saved {
+	color: #398362;
+}
+
+.activity-result.failed {
+	color: #bd5247;
+}
+
+@keyframes pulse {
+	to { opacity: 0.35; }
+}
+
+@media (max-width: 700px) {
+	.app-shell {
+		width: min(100% - 32px, 500px);
+		padding-top: 34px;
+	}
+
+	.page-header {
+		align-items: flex-start;
+		flex-direction: column;
+		gap: 16px;
+	}
+
+	h1 {
+		font-size: 36px;
+	}
+
+	.board {
+		grid-template-columns: 1fr;
+		gap: 18px;
+	}
+
+	.drop-zone {
+		min-height: 150px;
+	}
+}

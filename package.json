@@ -16,6 +16,7 @@
   "scripts": {
     "start": "FAST_REFRESH=false PORT=4000 react-scripts start",
     "bistro": "parcel serve bistro/index.html --port 5001",
+    "dd": "parcel serve drag_drop/index.html --port 5001",
     "foodex": "parcel serve foodex/index.html --port 5002",
     "nflix": "parcel serve nflix/index.html --port 5002",
     "demo": "parcel serve demo/index.html --port 5002",
@@ -24,6 +25,7 @@
     "clean": "rm -rf coverage dist build",
     "build:foodex": "parcel build foodex/index.html",
     "build:nflix": "parcel build nflix/index.html",
+    "build:dd": "parcel build drag_drop/index.html",
     "build:demo": "parcel build demo/index.html",
     "build:bistro": "parcel build bistro/index.html"
   },
@@ -53,6 +55,7 @@
     "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
     "babel-jest": "^27.5.1",
+    "buffer": "^6.0.3",
     "jest": "^27.5.1",
     "parcel": "^2.16.4",
     "postcss": "^8.4.41",

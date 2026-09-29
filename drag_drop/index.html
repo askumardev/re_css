@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Move Board | Drag and Drop</title>
+    <link rel="stylesheet" href="./dd.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">INTERACTION DEMO</p>
+          <h1>Move board</h1>
+          <p class="page-intro">Drag a task into another column to record its move.</p>
+        </div>
+        <div class="connection-status" id="connection-status" role="status" aria-live="polite">
+          <span class="status-dot"></span>
+          <span id="status-text">Ready to record moves</span>
+        </div>
+      </header>
+
+      <section class="board" aria-label="Task board">
+        <section class="column" data-status="todo" aria-labelledby="todo-title">
+          <header class="column-header">
+            <h2 id="todo-title">To do</h2>
+            <span class="task-count" data-count="todo">0</span>
+          </header>
+          <div class="drop-zone" data-dropzone="todo"></div>
+        </section>
+        <section class="column" data-status="doing" aria-labelledby="doing-title">
+          <header class="column-header">
+            <h2 id="doing-title">In progress</h2>
+            <span class="task-count" data-count="doing">0</span>
+          </header>
+          <div class="drop-zone" data-dropzone="doing"></div>
+        </section>
+        <section class="column" data-status="done" aria-labelledby="done-title">
+          <header class="column-header">
+            <h2 id="done-title">Done</h2>
+            <span class="task-count" data-count="done">0</span>
+          </header>
+          <div class="drop-zone" data-dropzone="done"></div>
+        </section>
+      </section>
+
+      <section class="activity" aria-labelledby="activity-title">
+        <div class="activity-heading">
+          <h2 id="activity-title">Move history</h2>
+          <span>POST /posts</span>
+        </div>
+        <ol id="activity-list" aria-live="polite">
+          <li class="empty-activity">Moves recorded by the API will appear here.</li>
+        </ol>
+      </section>
+    </main>
+    <script type="module" src="./dd.js"></script>
+  </body>
+</html>

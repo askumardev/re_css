@@ -1,0 +1,146 @@
+<!-- http://localhost:5500/practice/adv/axios.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Axios GET and POST Demo</title>
+	<script src="https://cdn.jsdelivr.net/npm/axios@1.7.9/dist/axios.min.js"></script>
+	<style>
+		:root {
+			color-scheme: light;
+			font-family: "Trebuchet MS", sans-serif;
+			background: #f2f5f0;
+			color: #202820;
+		}
+		* { box-sizing: border-box; }
+		body { margin: 0; padding: 40px 20px; }
+		main { width: min(880px, 100%); margin: 0 auto; }
+		header { margin-bottom: 28px; }
+		.eyebrow { color: #32715b; font-size: 12px; font-weight: 700; text-transform: uppercase; }
+		h1 { margin: 8px 0; font-size: 34px; }
+		.intro, .note { color: #566158; line-height: 1.5; }
+		.requests { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+		.panel, .output { border: 1px solid #d5ddd4; border-radius: 8px; background: #fff; padding: 20px; }
+		h2 { margin: 0 0 8px; font-size: 19px; }
+		.method { display: inline-block; margin-right: 8px; color: #176344; font-size: 12px; font-weight: 800; }
+		p { color: #566158; line-height: 1.5; }
+		label { display: block; margin: 14px 0 6px; font-size: 13px; font-weight: 700; }
+		input, textarea { width: 100%; border: 1px solid #bac6ba; border-radius: 5px; padding: 10px; font: inherit; }
+		textarea { min-height: 84px; resize: vertical; }
+		button { margin-top: 16px; border: 0; border-radius: 5px; padding: 11px 15px; background: #176344; color: white; font: inherit; font-weight: 700; cursor: pointer; }
+		button:hover { background: #104b33; }
+		button:disabled { opacity: .6; cursor: wait; }
+		.output { margin-top: 18px; }
+		.output-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+		#request-status { color: #566158; font-size: 13px; }
+		pre { overflow: auto; min-height: 100px; max-height: 360px; margin: 14px 0 0; padding: 14px; border-radius: 5px; background: #19221d; color: #e7f0e9; font: 13px/1.5 monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+		.note { margin-top: 14px; font-size: 13px; }
+		@media (max-width: 620px) {
+			body { padding: 24px 14px; }
+			.requests { grid-template-columns: 1fr; }
+			h1 { font-size: 29px; }
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<header>
+			<p class="eyebrow">HTTP request practice</p>
+			<h1>Axios GET and POST</h1>
+			<p class="intro">Send requests to a test API and inspect the response below.</p>
+		</header>
+
+		<section class="requests" aria-label="Axios request examples">
+			<article class="panel">
+				<h2><span class="method">GET</span>Fetch a post</h2>
+				<p>Request post 1 from the API and display its response.</p>
+				<button id="get-button" type="button">Send GET request</button>
+			</article>
+
+			<article class="panel">
+				<h2><span class="method">POST</span>Create a post</h2>
+				<form id="post-form">
+					<label for="title">Title</label>
+					<input id="title" name="title" value="Axios demo post" required>
+					<label for="body">Body</label>
+					<textarea id="body" name="body" required>A post sent with axios.post()</textarea>
+					<label for="user-id">User ID</label>
+					<input id="user-id" name="userId" type="number" min="1" value="1" required>
+					<button id="post-button" type="submit">Send POST request</button>
+				</form>
+			</article>
+		</section>
+
+		<section class="output" aria-labelledby="output-title" aria-live="polite">
+			<div class="output-heading">
+				<h2 id="output-title">Response</h2>
+				<span id="request-status">Ready</span>
+			</div>
+			<pre id="response-output">Choose GET or submit the POST form to see a response.</pre>
+		</section>
+		<p class="note">JSONPlaceholder is a demo API: POST returns a simulated response and does not permanently save the post.</p>
+	</main>
+
+	<script>
+		const API_URL = 'https://jsonplaceholder.typicode.com/posts';
+		const output = document.querySelector('#response-output');
+		const status = document.querySelector('#request-status');
+
+		function showResponse(response) {
+			status.textContent = `HTTP ${response.status} ${response.statusText}`;
+			output.textContent = JSON.stringify(response.data, null, 2);
+			console.info('Axios response:', response);
+		}
+
+		function showError(error) {
+			const details = error.response
+				? { status: error.response.status, data: error.response.data }
+				: { message: error.message };
+			status.textContent = 'Request failed';
+			output.textContent = JSON.stringify(details, null, 2);
+			console.error('Axios request failed:', error);
+		}
+
+		document.querySelector('#get-button').addEventListener('click', async (event) => {
+			const button = event.currentTarget;
+			button.disabled = true;
+			status.textContent = 'Sending GET…';
+			try {
+				// axios.get() sends a GET request; the URL selects post 1.
+				const response = await axios.get(`${API_URL}/1`);
+				showResponse(response);
+			} catch (error) {
+				showError(error);
+			} finally {
+				button.disabled = false;
+			}
+		});
+
+		document.querySelector('#post-form').addEventListener('submit', async (event) => {
+			event.preventDefault();
+			const form = event.currentTarget;
+			const button = document.querySelector('#post-button');
+			const formData = new FormData(form);
+			const post = {
+				title: formData.get('title'),
+				body: formData.get('body'),
+				userId: Number(formData.get('userId')),
+			};
+
+			button.disabled = true;
+			status.textContent = 'Sending POST…';
+			try {
+				// axios.post() sends the new post object as the request body.
+				const response = await axios.post(API_URL, post);
+				showResponse(response);
+			} catch (error) {
+				showError(error);
+			} finally {
+				button.disabled = false;
+			}
+		});
+	</script>
+</body>
+</html>
