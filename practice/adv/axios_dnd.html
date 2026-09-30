@@ -1,0 +1,434 @@
+<!-- http://localhost:5500/practice/adv/axios_dnd.html -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>React Axios DnD</title>
+
+    <!-- React -->
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js">
+    </script>
+
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js">
+    </script>
+
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 30px;
+      }
+
+      button {
+        margin: 5px;
+        padding: 7px 12px;
+        cursor: pointer;
+      }
+
+      .board {
+        display: flex;
+        gap: 20px;
+      }
+
+      .column {
+        width: 300px;
+        min-height: 400px;
+        padding: 15px;
+        background: #eee;
+      }
+
+      .card {
+        background: white;
+        padding: 12px;
+        margin-bottom: 10px;
+        cursor: grab;
+        border: 1px solid #ccc;
+      }
+
+      .dragging {
+        opacity: 0.5;
+      }
+
+      .card button {
+        margin-left: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+
+  <div id="root"></div>
+
+
+  <script type="text/babel">
+
+    const { useEffect, useState } = React;
+
+
+    function App() {
+
+      const API_URL =
+        "https://jsonplaceholder.typicode.com/posts";
+
+
+      const [todo, setTodo] = useState([]);
+      const [completed, setCompleted] = useState([]);
+
+      const [draggedPost, setDraggedPost] = useState(null);
+
+      const [loading, setLoading] = useState(false);
+
+
+      // ------------------------------------
+      // GET POSTS
+      // ------------------------------------
+
+      useEffect(() => {
+
+        getPosts();
+
+      }, []);
+
+
+      const getPosts = async () => {
+
+        try {
+
+          setLoading(true);
+
+          const response =
+            await axios.get(API_URL);
+
+          // JSONPlaceholder returns 100 posts.
+          // Take only 10 for this demo.
+
+          const posts =
+            response.data.slice(0, 10);
+
+          setTodo(posts);
+
+        } catch (error) {
+
+          console.error(error);
+
+        } finally {
+
+          setLoading(false);
+
+        }
+
+      };
+
+
+      // ------------------------------------
+      // CREATE POST
+      // ------------------------------------
+
+      const createPost = async () => {
+
+        try {
+
+          const newPost = {
+            title: "New Post",
+            body: "Created using Axios",
+            userId: 1
+          };
+
+
+          const response =
+            await axios.post(
+              API_URL,
+              newPost
+            );
+
+
+          setTodo(prev => [
+            ...prev,
+            response.data
+          ]);
+
+        } catch (error) {
+
+          console.error(error);
+
+        }
+
+      };
+
+
+      // ------------------------------------
+      // DELETE POST
+      // ------------------------------------
+
+      const deletePost = async (id) => {
+
+        try {
+
+          await axios.delete(
+            `${API_URL}/${id}`
+          );
+
+
+          setTodo(prev =>
+            prev.filter(post => post.id !== id)
+          );
+
+
+          setCompleted(prev =>
+            prev.filter(post => post.id !== id)
+          );
+
+
+        } catch (error) {
+
+          console.error(error);
+
+        }
+
+      };
+
+
+      // ------------------------------------
+      // DRAG START
+      // ------------------------------------
+
+      const handleDragStart = (post) => {
+
+        setDraggedPost(post);
+
+      };
+
+
+      // ------------------------------------
+      // DROP
+      // ------------------------------------
+
+      const handleDrop = async (targetColumn) => {
+
+        if (!draggedPost) {
+          return;
+        }
+
+
+        // Remove from both columns first
+
+        setTodo(prev =>
+          prev.filter(
+            post => post.id !== draggedPost.id
+          )
+        );
+
+
+        setCompleted(prev =>
+          prev.filter(
+            post => post.id !== draggedPost.id
+          )
+        );
+
+
+        // Add to target column
+
+        if (targetColumn === "todo") {
+
+          setTodo(prev => [
+            ...prev,
+            draggedPost
+          ]);
+
+        } else {
+
+          setCompleted(prev => [
+            ...prev,
+            draggedPost
+          ]);
+
+        }
+
+
+        // Update server
+
+        try {
+
+          await axios.patch(
+            `${API_URL}/${draggedPost.id}`,
+            {
+              status: targetColumn
+            }
+          );
+
+          console.log(
+            `Post ${draggedPost.id} moved to ${targetColumn}`
+          );
+
+        } catch (error) {
+
+          console.error(error);
+
+        }
+
+
+        setDraggedPost(null);
+
+      };
+
+
+      // ------------------------------------
+      // DRAG OVER
+      // ------------------------------------
+
+      const handleDragOver = (event) => {
+
+        event.preventDefault();
+
+      };
+
+
+      return (
+
+        <div>
+
+          <h1>React Axios + DnD</h1>
+
+
+          <button onClick={getPosts}>
+            GET Posts
+          </button>
+
+
+          <button onClick={createPost}>
+            POST New Post
+          </button>
+
+
+          {loading && (
+            <p>Loading...</p>
+          )}
+
+
+          <div className="board">
+
+
+            {/* TODO */}
+
+            <div
+              className="column"
+              onDragOver={handleDragOver}
+              onDrop={() => handleDrop("todo")}
+            >
+
+              <h2>Todo</h2>
+
+
+              {todo.map(post => (
+
+                <div
+                  key={post.id}
+                  className="card"
+                  draggable
+                  onDragStart={() =>
+                    handleDragStart(post)
+                  }
+                >
+
+                  <strong>
+                    {post.title}
+                  </strong>
+
+                  <p>
+                    {post.body}
+                  </p>
+
+
+                  <button
+                    onClick={() =>
+                      deletePost(post.id)
+                    }
+                  >
+                    Delete
+                  </button>
+
+                </div>
+
+              ))}
+
+            </div>
+
+
+            {/* COMPLETED */}
+
+            <div
+              className="column"
+              onDragOver={handleDragOver}
+              onDrop={() => handleDrop("completed")}
+            >
+
+              <h2>Completed</h2>
+
+
+              {completed.map(post => (
+
+                <div
+                  key={post.id}
+                  className="card"
+                  draggable
+                  onDragStart={() =>
+                    handleDragStart(post)
+                  }
+                >
+
+                  <strong>
+                    {post.title}
+                  </strong>
+
+                  <p>
+                    {post.body}
+                  </p>
+
+
+                  <button
+                    onClick={() =>
+                      deletePost(post.id)
+                    }
+                  >
+                    Delete
+                  </button>
+
+                </div>
+
+              ))}
+
+            </div>
+
+
+          </div>
+
+        </div>
+
+      );
+
+    }
+
+
+    ReactDOM
+      .createRoot(
+        document.getElementById("root")
+      )
+      .render(<App />);
+
+  </script>
+
+  </body>
+</html>
