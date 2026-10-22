@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Debounced Search</title>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 640px;
+        margin: 40px auto;
+        padding: 0 20px;
+        color: #222;
+      }
+
+      input {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+      }
+
+      .status {
+        min-height: 24px;
+        margin: 12px 0;
+        color: #555;
+      }
+
+      .result {
+        padding: 12px 0;
+        border-bottom: 1px solid #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const { useEffect, useState } = React;
+
+      const sampleUsers = [
+        { name: "Alex Morgan", role: "Frontend Developer", email: "alex@example.test" },
+        { name: "Sam Taylor", role: "Product Designer", email: "sam@example.test" },
+        { name: "Jordan Lee", role: "Data Analyst", email: "jordan@example.test" },
+        { name: "Casey Rivera", role: "Backend Developer", email: "casey@example.test" },
+        { name: "Riley Chen", role: "UX Researcher", email: "riley@example.test" },
+      ];
+
+      // Local stand-in for an API call: it filters sample data without network requests.
+      function searchSampleApi(query) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            const normalizedQuery = query.trim().toLowerCase();
+            console.log(`Searching for "${normalizedQuery}"...`);
+            const matchingUsers = sampleUsers.filter((user) =>
+              `${user.name} ${user.role} ${user.email}`
+                .toLowerCase()
+                .includes(normalizedQuery)
+            );
+
+            resolve(matchingUsers);
+          }, 200);
+        });
+      }
+
+      function SearchBox() {
+        const [text, setText] = useState("");
+        const [results, setResults] = useState(sampleUsers);
+        const [status, setStatus] = useState("Showing all sample results.");
+
+        useEffect(() => {
+          if (!text.trim()) {
+            setResults(sampleUsers);
+            setStatus("Showing all sample results.");
+            return;
+          }
+
+          let active = true;
+          setStatus("Waiting for you to finish typing...");
+
+          const timer = setTimeout(async () => {
+            setStatus("Searching...");
+
+            const users = await searchSampleApi(text);
+            if (!active) return;
+
+            setResults(users);
+            setStatus(
+              users.length
+                ? `${users.length} result${users.length === 1 ? "" : "s"} found.`
+                : "No matching results."
+            );
+          }, 400);
+
+          return () => {
+            active = false;
+            clearTimeout(timer);
+          };
+        }, [text]);
+
+        return (
+          <main>
+            <h1>Debounced Search</h1>
+            <p>
+              Type any part of a name, role, or email. Search runs after you
+              pause typing.
+            </p>
+            <p>
+              <strong>Data source:</strong> local sample data (no network
+              requests).
+            </p>
+
+            <input
+              type="search"
+              placeholder="Start typing..."
+              value={text}
+              onChange={(event) => setText(event.target.value)}
+            />
+
+            <p className="status" aria-live="polite">
+              {status}
+            </p>
+
+            <div>
+              {results.map((user) => (
+                <div className="result" key={user.email}>
+                  <strong>{user.name}</strong>
+                  <div>
+                    {user.role} · {user.email}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </main>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<SearchBox />);
+    </script>
+  </body>
+</html>
