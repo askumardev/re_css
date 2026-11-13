@@ -61,6 +61,35 @@ main {
   line-height: 1.6;
 }
 
+.topic-category {
+  margin: 0 0 0.5rem;
+  color: #526579;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.study-card {
+  max-width: 680px;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border: 1px solid #d5e0ec;
+  border-left: 4px solid #24415f;
+  border-radius: 0.75rem;
+  background: #ffffff;
+}
+
+.study-card h3 {
+  margin-top: 0;
+  color: #24415f;
+}
+
+.study-card p {
+  margin-bottom: 0;
+  line-height: 1.6;
+}
+
 .component-example {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);

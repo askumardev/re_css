@@ -85,9 +85,3 @@ header {
 .dropdown-menu a:focus-visible {
     background: #eaf2fb;
 }
-
-.demo-navbar a:hover,
-.demo-navbar a:focus-visible {
-    background: #24415f;
-    color: #ffffff;
-}

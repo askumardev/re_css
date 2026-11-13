@@ -6,7 +6,6 @@ export const TOPIC_GROUPS = [
       {
         id: "components",
         title: "Components",
-        href: "components.html",
         description:
           "Build interfaces from small, reusable functions that return React elements.",
       },

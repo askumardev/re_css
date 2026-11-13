@@ -17,7 +17,7 @@ function Header({ groups, homeHref = "" }) {
               <ul className="dropdown-menu">
                 {group.topics.map((topic) => (
                   <li key={topic.id}>
-                    <a href={topic.href || `${homeHref}#${topic.id}`}>
+                    <a href={`components.html?topic=${encodeURIComponent(topic.id)}`}>
                       {topic.title}
                     </a>
                   </li>
