@@ -19,14 +19,14 @@
     "dd": "parcel serve drag_drop/index.html --port 5001",
     "foodex": "parcel serve foodex/index.html --port 5002",
     "nflix": "parcel serve nflix/index.html --port 5002",
-    "demo": "parcel serve demo/index.html --port 5002",
+    "demo": "parcel serve demo/index.html demo/components.html --port 5003",
     "proxy-server": "node proxy/server.js",
     "build": "react-scripts build",
     "clean": "rm -rf coverage dist build",
     "build:foodex": "parcel build foodex/index.html",
     "build:nflix": "parcel build nflix/index.html",
     "build:dd": "parcel build drag_drop/index.html",
-    "build:demo": "parcel build demo/index.html",
+    "build:demo": "parcel build demo/index.html demo/components.html",
     "build:bistro": "parcel build bistro/index.html"
   },
   "eslintConfig": {

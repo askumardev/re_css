@@ -19,6 +19,9 @@ const Home = () => (
           <a className="button secondary" href="http://localhost:5000" target="_blank" rel="noreferrer">
             Open foodora sample
           </a>
+          <a className="button secondary" href="http://localhost:5003" target="_blank" rel="noreferrer">
+            Open demo
+          </a>
         </div>
       </div>
       <div className="hero-card">
@@ -26,7 +29,7 @@ const Home = () => (
         <div className="code-block">
           <code>npm install</code>
           <code>npm start</code>
-          <code>npm run foodora</code>
+          <code>npm run demo</code>
         </div>
       </div>
     </section>
@@ -41,8 +44,8 @@ const Home = () => (
         <p>Explore a real sample project with async data, routing, and Redux.</p>
       </div>
       <div className="feature-card">
-        <h3>Practice demos</h3>
-        <p>Keep HTML/CSS/JS demos in <code>practice/</code> for quick experiments.</p>
+        <h3>React demo</h3>
+        <p>Explore interactive examples of components, JSX, props, and state.</p>
       </div>
     </section>
   </div>

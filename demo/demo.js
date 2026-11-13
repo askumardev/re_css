@@ -1,40 +1,27 @@
 import React from "react";
-import { useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./demo.css";
-import { CORE_CONCEPTS } from "./data.js";
+import { TOPIC_GROUPS } from "./data.js";
 import Header from "./components/Header.js";
-import CoreConcept from "./components/CoreConcept.js";
-import EmptyCache from "./components/EmptyCache.js";
-
 
 function App() {
-  const [selectedConcept, setSelectedConcept] = useState(0);
-  const concept = CORE_CONCEPTS[selectedConcept];
-
   return (
     <div>
-      {/* <EmptyCache /> */}
-      <Header />
-
+      <Header groups={TOPIC_GROUPS} />
       <main>
-        <section>
-          <h2>Core Concepts</h2>
-          <ul className="concept-navigation">
-            {CORE_CONCEPTS.map((item, index) => (
-              <CoreConcept
-                key={item.title}
-                title={item.title}
-                isActive={selectedConcept === index}
-                onSelect={() => setSelectedConcept(index)}
-              />
-            ))}
-          </ul>
-          <article className="concept-description" aria-live="polite">
-            <p>{concept.description}</p>
-          </article>
-        </section>
-     
+        {TOPIC_GROUPS.map((group) => (
+          <section className="topic-group" id={group.id} key={group.id}>
+            <h2>{group.title}</h2>
+            <div className="topic-grid">
+              {group.topics.map((topic) => (
+                <article className="topic-card" id={topic.id} key={topic.id}>
+                  <h3>{topic.title}</h3>
+                  <p>{topic.description}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))}
       </main>
     </div>
   );

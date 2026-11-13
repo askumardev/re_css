@@ -1,26 +1,33 @@
 import "../header.css";
-//import img from "./images/atom.png";
-function genRandomInt(max) {
-  return Math.floor(Math.random() * (max + 1));
-}
 
-
-function Header() {
-  const arrDesc  = ["Sample", "Core", "Crucial", 
-    "Important", "Essential", "Fundamental", "Necessary", 
-    "Required", "Vital", "Critical"];
-  const desc = arrDesc[genRandomInt(3)];
+function Header({ groups, homeHref = "" }) {
   return (
-    <div>
+    <>
       <header>
-        <h1 className="header-title">React Essentials</h1>
-        {/* <img src={img} alt="React Atom Logo" /> */}
-        <p>
-          {desc} React concepts you will need for almost any app you are
-          going to build!
-        </p>
+        <h1 className="header-title">React Preparation</h1>
+        <p>Browse core concepts and examples for your React preparation.</p>
       </header>
-    </div>
+      <nav className="demo-navbar" aria-label="React preparation topics">
+        <ul className="navbar-list">
+          {groups.map((group) => (
+            <li className="navbar-item" key={group.id}>
+              <a className="navbar-link" href={`${homeHref}#${group.id}`}>
+                {group.title}
+              </a>
+              <ul className="dropdown-menu">
+                {group.topics.map((topic) => (
+                  <li key={topic.id}>
+                    <a href={topic.href || `${homeHref}#${topic.id}`}>
+                      {topic.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </>
   );
 }
 
