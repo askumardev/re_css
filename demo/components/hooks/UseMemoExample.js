@@ -7,7 +7,7 @@ export default function UseMemoExample() {
 
   const expensiveValue = useMemo(() => {
     let total = 0;
-    for (let i = 0; i < 100000000; i += 1) {
+    for (let i = 0; i < 1000000; i += 1) {
       total += i;
     }
     return total;

@@ -5,7 +5,6 @@ import Home from './js/Home';
 import Counter from './js/Counter';
 import Calculator from './js/Calculator';
 import Login from './js/Login';
-import HooksExamples from './hooks';
 
 const App = () => {
   return (
@@ -17,7 +16,6 @@ const App = () => {
           <Route path="/counter" element={<Counter />} />
           <Route path="/login" element={<Login />} />
           <Route path="/calculator" element={<Calculator />} />
-          <Route path="/hooks" element={<HooksExamples />} />
         </Routes>
       </div>
     </Router>

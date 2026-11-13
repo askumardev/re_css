@@ -3,6 +3,60 @@ import ReactDOM from "react-dom/client";
 import "./demo.css";
 import { TOPIC_GROUPS } from "./data.js";
 import Header from "./components/Header.js";
+import ComponentsDemo from "./components/fundas/components/ComponentsDemo.jsx";
+import JsxDemo from "./components/fundas/jsx/JsxDemo.jsx";
+import PropDemo from "./components/fundas/props/PropDemo.jsx";
+import StateDemo from "./components/fundas/state/StateDemo.jsx";
+import VirtualDomDemo from "./components/fundas/virtual-dom/VirtualDomDemo.jsx";
+import UseStateExample from "./components/hooks/UseStateExample.js";
+import UseEffectExample from "./components/hooks/UseEffectExample.js";
+import UseRefExample from "./components/hooks/UseRefExample.js";
+import UseMemoExample from "./components/hooks/UseMemoExample.js";
+import UseCallbackExample from "./components/hooks/UseCallbackExample.js";
+import LifecycleDemo from "./components/lifecycle/LifecycleDemo.jsx";
+import ApiIntegrationDemo from "./components/api/ApiIntegrationDemo.jsx";
+import StateManagementDemo from "./components/state-management/StateManagementDemo.jsx";
+import JavaScriptDemo from "./components/javascript/JavaScriptDemo.jsx";
+import ReactPerformanceDemo from "./components/performance/ReactPerformanceDemo.jsx";
+import FormsEventsDemo from "./components/forms/FormsEventsDemo.jsx";
+import ReactRouterDemo from "./components/router/ReactRouterDemo.jsx";
+
+const topicExamples = {
+  components: ComponentsDemo,
+  jsx: JsxDemo,
+  props: PropDemo,
+  state: StateDemo,
+  "virtual-dom": VirtualDomDemo,
+  "use-state": UseStateExample,
+  "use-effect": UseEffectExample,
+  "use-ref": UseRefExample,
+  "use-memo": UseMemoExample,
+  "use-callback": UseCallbackExample,
+  mounting: LifecycleDemo,
+  updating: LifecycleDemo,
+  unmounting: LifecycleDemo,
+  "effect-cleanup": LifecycleDemo,
+  fetch: ApiIntegrationDemo,
+  axios: ApiIntegrationDemo,
+  "rest-apis": ApiIntegrationDemo,
+  "api-error-handling": ApiIntegrationDemo,
+  "props-drilling": StateManagementDemo,
+  "context-api": StateManagementDemo,
+  "redux-basics": StateManagementDemo,
+  closures: JavaScriptDemo,
+  promises: JavaScriptDemo,
+  "async-await": JavaScriptDemo,
+  "array-methods": JavaScriptDemo,
+  memoization: ReactPerformanceDemo,
+  "re-rendering": ReactPerformanceDemo,
+  "lazy-loading": ReactPerformanceDemo,
+  "controlled-components": FormsEventsDemo,
+  "form-validation": FormsEventsDemo,
+  "event-handling": FormsEventsDemo,
+  routing: ReactRouterDemo,
+  "nested-routes": ReactRouterDemo,
+  "protected-routes": ReactRouterDemo,
+};
 
 const requestedTopicId =
   new URLSearchParams(window.location.search).get("topic") || "components";
@@ -12,75 +66,10 @@ const selectedGroup = TOPIC_GROUPS.find((group) =>
 const selectedTopic = selectedGroup?.topics.find(
   (topic) => topic.id === requestedTopicId
 );
+const TopicExample = topicExamples[requestedTopicId];
 
 if (selectedTopic) {
   document.title = `${selectedTopic.title} | React Preparation`;
-}
-
-function SkillTag({ label }) {
-  return <span className="skill-tag">{label}</span>;
-}
-
-function SkillList({ skills }) {
-  return (
-    <div className="skill-list" aria-label="Skills">
-      {skills.map((skill) => (
-        <SkillTag key={skill} label={skill} />
-      ))}
-    </div>
-  );
-}
-
-function ProfileCard({ name, role, skills }) {
-  return (
-    <article className="profile-card">
-      <div className="profile-avatar" aria-hidden="true">
-        {name.charAt(0)}
-      </div>
-      <h3>{name}</h3>
-      <p className="profile-role">{role}</p>
-      <SkillList skills={skills} />
-    </article>
-  );
-}
-
-function ComponentsExample() {
-  return (
-    <section className="component-example" aria-labelledby="example-title">
-      <div>
-        <h3 id="example-title">Rendered example</h3>
-        <ProfileCard
-          name="Alex Morgan"
-          role="Frontend Developer"
-          skills={["React", "JavaScript", "CSS"]}
-        />
-      </div>
-      <div>
-        <h3>Component code</h3>
-        <pre>
-          <code>{`function SkillTag({ label }) {
-  return <span>{label}</span>;
-}
-
-function SkillList({ skills }) {
-  return skills.map((skill) => (
-    <SkillTag key={skill} label={skill} />
-  ));
-}
-
-function ProfileCard({ name, role, skills }) {
-  return (
-    <article>
-      <h2>{name}</h2>
-      <p>{role}</p>
-      <SkillList skills={skills} />
-    </article>
-  );
-}`}</code>
-        </pre>
-      </div>
-    </section>
-  );
 }
 
 function TopicPage() {
@@ -91,22 +80,12 @@ function TopicPage() {
         <a className="back-link" href="index.html">
           &larr; Back to all topics
         </a>
-        {selectedTopic ? (
+        {selectedTopic && TopicExample ? (
           <>
             <p className="topic-category">{selectedGroup.title}</p>
             <h2>{selectedTopic.title}</h2>
             <p className="component-intro">{selectedTopic.description}</p>
-            {selectedTopic.id === "components" ? (
-              <ComponentsExample />
-            ) : (
-              <article className="study-card">
-                <h3>Preparation focus</h3>
-                <p>
-                  Be ready to explain {selectedTopic.title}, describe when it is
-                  useful, and show how it applies in a small React example.
-                </p>
-              </article>
-            )}
+            <TopicExample topicId={selectedTopic.id} />
           </>
         ) : (
           <section className="study-card" aria-live="polite">

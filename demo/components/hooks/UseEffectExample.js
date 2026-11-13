@@ -13,10 +13,6 @@ export default function UseEffectExample() {
     return () => clearInterval(timer);
   }, []);
 
-  useEffect(() => {
-    document.title = `Status: ${status}`;
-  }, [status]);
-
   return (
     <section style={{ border: '1px solid #ddd', padding: '16px', borderRadius: '12px', marginBottom: '16px' }}>
       <h3>2) useEffect</h3>

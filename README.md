@@ -28,6 +28,7 @@ Useful scripts:
 - `npm run bistro` — Serve the new `bistro` sample with Parcel on port 5001.
 - `npm run demo` — Serve the React concepts demo from `demo/` at `http://localhost:5003`.
 - Hover or keyboard-focus a category in the demo navbar to open its topic links. Each topic opens its own preparation page, for example `http://localhost:5003/components.html?topic=jsx`.
+- Demo examples are organized under `demo/components/` by subject: fundamentals (`fundas/`), hooks, lifecycle, API integration, state management, JavaScript, performance, forms, and routing. Each topic link selects its corresponding example from this structure.
 - `npm run build` — Build the React app for production.
 - `npm run build:foodex` — Build the `foodex` sample with Parcel.
 - `npm run build:bistro` — Build the `bistro` sample with Parcel.

@@ -90,6 +90,54 @@ main {
   line-height: 1.6;
 }
 
+.study-card button,
+.study-card input,
+.route-demo button {
+  margin: 0.35rem 0.35rem 0.35rem 0;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid #b6c8dc;
+  border-radius: 0.4rem;
+  background: #ffffff;
+  color: #24415f;
+  font: inherit;
+}
+
+.study-card button,
+.route-demo button {
+  cursor: pointer;
+}
+
+.study-card button:hover,
+.route-demo button:hover,
+.route-demo button[aria-current="page"] {
+  background: #24415f;
+  color: #ffffff;
+}
+
+.study-card input {
+  display: block;
+}
+
+.example-code {
+  overflow-x: auto;
+  margin: 1rem 0 0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: #0f172a;
+  color: #f8fafc;
+  line-height: 1.6;
+}
+
+.performance-demo {
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.performance-demo.theme-dark {
+  background: #0f172a;
+  color: #f8fafc;
+}
+
 .component-example {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
